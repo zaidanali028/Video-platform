@@ -1,0 +1,83 @@
+{% extends 'admin_app/admin_main_layout.html' %}
+
+
+{% load static %}
+
+{% block content %}
+ <!-- Modal -->
+ <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 transition-opacity opacity-0 pointer-events-none">
+    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
+        <!-- Modal Header -->
+        <div class="bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102 text-white px-4 py-2 flex justify-between items-center">
+            <h2 class="text-lg font-semibold text-white">Add | Update Genre</h2>
+            <button id="closeModal" class="text-white">&times;</button>
+        </div>
+        <!-- Modal Body -->
+     <div class="p-4" id="modal_body" >
+             <!-- genre_form here -->
+
+            </div>
+      
+    </div>
+</div>
+
+<div class="container mx-auto px-4 py-8  bg-gray-100">
+    <h1 class="text-2xl font-bold mb-4">Genres </h1>
+
+    <!-- Add Genre Form -->
+    <div class="bg-white p-4 rounded shadow mb-6">
+        <h2 class="text-xl font-semibold mb-4">Add New Genre</h2>
+
+
+        <div class="flex justify-start">
+            <button onclick="openModal()" hx-get="{% url 'add_genre'%}" hx-target="#modal_body"  class="openModal bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102 text-white px-4 py-2 rounded shadow hover:bg-blue-600">
+                Add Genre
+            </button>
+
+        
+        </div>
+
+    </div>
+
+    <!-- Genres Table -->
+    <div class="bg-white p-4 rounded shadow">
+        <h2 class="text-xl font-semibold mb-4">Genres List</h2>
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" hx-get="{% url 'genres_list' %}" hx-trigger="load,genre_list_update from:body ">
+               <!-- 1. load, -->
+               <!-- on load,make a request and get all genres -->
+             
+               <!--2. genre_list_update from:body  -->
+               <!-- invoke a custom event for making a request to get the newloy updated genre lists -->
+
+
+                <tr>
+                    <td colspan="2" class="flex justify-center items-center py-4">
+                        <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-purple-500"></div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock content %}

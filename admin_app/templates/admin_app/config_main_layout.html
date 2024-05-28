@@ -1,0 +1,32 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- daisy ui -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- htmx -->
+<script src="{% static 'admin_temp_files/assets/js/htmx.min.js' %}"></script>
+   
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+</head>
+
+<body  hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }' class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+  {% block content %}
+
+  {% endblock %}
+
+
+  <!-- my custom js file -->
+<script src="{% static 'admin_temp_files/assets/js/custom.js' %}" async></script>
+</body>
+
+
+</html>

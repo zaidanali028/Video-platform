@@ -1,0 +1,59 @@
+{% extends 'admin_app/config_main_layout.html' %}
+
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="flex justify-center items-center h-screen"
+    style="background-image: url('{% static 'admin_temp_files/assets/img/curved-images/curved6.jpg' %}'">
+
+
+    <div class="card w-96 bg-base-100 shadow-xl bg-red">
+        <div class="card-header">
+            <h2
+                class="text-center relative z-10 font-bold text-transparent bg-gradient-to-tl from-blue-600 to-cyan-400 bg-clip-text">
+                Configure Your Video Platform And Have An Awesome Experience!</h2>
+        </div>
+
+        <div class="card-body">
+
+
+            <form class="form" 
+            hx-post="{% url 'post-config' %}" 
+            hx-target="this" 
+            hx-indicator="#loading" 
+            hx-on="htmx:afterRequest: if (event.detail.xhr.getResponseHeader('HX-Redirect')) { window.location.href = event.detail.xhr.getResponseHeader('HX-Redirect'); }">
+         
+
+
+                <div class="col-span-1">
+                    {% include 'admin_app/partials/form_elements/name_res.html' %}
+                    {% include 'admin_app/partials/form_elements/email_res.html' %}
+                    {% include 'admin_app/partials/form_elements/phone_number_res.html' %}
+                    {% include 'admin_app/partials/form_elements/brand_name_res.html' %}
+                    {% include 'admin_app/partials/form_elements/password_res.html' %}
+
+
+                    <div class=" mt-3">
+                        <span class="text-center htmx-indicator m-auto h-10 inline-block w-full px-6 py-3 mt-6" id="loading">
+                            <span class="loading loading-ring loading-md"> </span></span>
+
+                        <button type="submit" hx-ext="disable-element" hx-disable-element="#to-disable"
+                            class=" m-auto h-10 inline-block w-full px-6 py-3 mt-6 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">
+                            LETS GO!..
+                            
+                        </button>
+
+                    </div>
+
+
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
