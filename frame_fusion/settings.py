@@ -61,6 +61,11 @@ INSTALLED_APPS = [
 
     # register the admin panel to our main app
     'admin_app.apps.AdminAppConfig',
+    
+    #register the user panel to our main app
+     'user_app.apps.UserAppConfig', 
+    
+    
     'widget_tweaks',
      "django_htmx",
 
