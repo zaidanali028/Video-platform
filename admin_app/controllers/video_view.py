@@ -1,12 +1,12 @@
 # views.py
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from ..models import User, Video
+from ..models import User, Video,Show
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from admin_app.Forms.videos.Forms import VideoForm
-from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
+# from django.core.exceptions import ValidationError
+# from django.utils.translation import gettext_lazy as _
 import cloudinary.uploader
 from time import sleep
 @login_required(login_url='admin_login')
@@ -38,6 +38,7 @@ def videos(request):
     return render(request, 'admin_app/pages/videos/videos.html')
 
 def add_video(request):
+    shows=Show.objects.all()
     if request.method == 'POST':
         
         # Make POST data mutable to manipulate it
@@ -87,13 +88,13 @@ def add_video(request):
                     
 
             # Render the form with errors
-            return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {'form': form})
+            return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {'form': form,'shows':shows})
 
     else:
         # Initialize an empty form for GET requests
         form = VideoForm()
 
-    return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {'form': form})
+    return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {'form': form,'shows':shows})
 
 def edit_video(request, video_id):
     video = get_object_or_404(Video, id=video_id)

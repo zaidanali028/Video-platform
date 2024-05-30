@@ -78,6 +78,18 @@
 
     </div>
 
+    <div class="mb-4 col-span-1">
+        <label for="categories" class="block text-gray-700">Show</label>
+        {% render_field form.show class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" %}
+        {% if form.show.errors %}
+            <p class="text-red-500 text-sm mt-2">{{ form.show.errors.0 }}</p>
+        {% endif %}
+    </div>    
+
+ 
+    
+    
+
     <div class="mb-4">
         <span class="block text-gray-700">Status</span>
         <div class="mt-2">

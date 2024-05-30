@@ -25,7 +25,7 @@ window.addEventListener('click', function (event) {
 
 document.addEventListener("htmx:beforeSwap", function(event) {
     // before swapping uponn success of post request,
-    if(((event.detail.target.id=='videoForm') ||(event.detail.target.id=='genreForm') || (event.detail.target.id=='categoryForm')) &&  (!event.detail.xhr.response)){
+    if(((event.detail.target.id=='showForm') ||(event.detail.target.id=='videoForm') ||(event.detail.target.id=='genreForm') || (event.detail.target.id=='categoryForm')) &&  (!event.detail.xhr.response)){
         // if any of the forms above made the request and it returned an empty response,then all went well for adding to its model  so close modal
         // !event.detail.xhr.response will be true because each post request done upon success will have an epty response 
         // with a 204 status code
@@ -205,6 +205,9 @@ function confirmDelete(modelId) {
                 deleteItem('categories', modelId);
             } else if (url_origin == "/admin-app/videos/") {
                 deleteItem('videos', modelId);
+            }
+            else if (url_origin == "/admin-app/shows/") {
+                deleteItem('shows', modelId);
             }
         }
     });

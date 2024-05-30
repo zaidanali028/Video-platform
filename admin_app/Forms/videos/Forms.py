@@ -4,7 +4,7 @@ from admin_app.models import Video
 class VideoForm(forms.ModelForm):
     class Meta:
         model = Video
-        fields = ['title', 'description', 'categories', 'genres', 'status', 'thumb_image_url','video_url']
+        fields = ['title', 'description', 'categories', 'genres', 'status', 'thumb_image_url','video_url','show']
 
     def __init__(self, *args, **kwargs):
         super(VideoForm, self).__init__(*args, **kwargs)

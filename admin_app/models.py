@@ -4,15 +4,37 @@ from  django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 
 class User(AbstractUser):
-    
-    USERNAME_FIELD = "email"
+    # pass
     email = models.EmailField(unique=True, null=True)
     name = models.CharField(max_length=255,null=True)
     phone_number = models.CharField(max_length=20, unique=True, null=True)
     brand_name = models.CharField(max_length=255, unique=True, null=True)
     profile_image_url = models.URLField(max_length=255, blank=True, null=True)
-
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS=[]
+
+        
+class Genre(models.Model):
+    class Meta:
+          ordering=['-updated_at','created_at']
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
+     ]
+    name = models.CharField(max_length=100,unique=True)
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)  
+        super(Genre, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+    
 
 
 class Category(models.Model):
@@ -38,26 +60,32 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Genre(models.Model):
+
+
+class Show(models.Model):
     class Meta:
-          ordering=['-updated_at','created_at']
+        ordering=['-updated_at','created_at']
     STATUS_CHOICES = [
-        ('active', 'Active'),
-        ('inactive', 'Inactive'),
-     ]
-    name = models.CharField(max_length=100,unique=True)
+    ('active', 'Active'),
+    ('inactive', 'Inactive'),
+    ]
+    title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    cover_image_url = models.URLField(max_length=200, blank=True, null=True) 
+    
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)  
-        super(Genre, self).save(*args, **kwargs)
+        self.slug = slugify(self.title)
+        super(Show, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.title
+
+
+
 
 class Video(models.Model):
     class Meta:
@@ -75,6 +103,7 @@ class Video(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
     thumb_image_url = models.URLField(max_length=255, blank=True, null=True)
     video_url = models.URLField(max_length=255, blank=True, null=True)
+    show = models.ForeignKey(Show, on_delete=models.CASCADE, default=None)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -85,3 +114,4 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+    

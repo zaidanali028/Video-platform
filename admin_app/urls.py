@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
-from .controllers import config_view,auth_view,admin_view,genre_view,category_view,video_view
+from .controllers import config_view,auth_view,admin_view,genre_view,category_view,video_view,show_view
 
 urlpatterns = [
     path('config-platform/', config_view.config_platform ,name='config_platform'),
@@ -34,6 +34,13 @@ urlpatterns = [
     path('categories/add/', category_view.add_category, name='add_category'),
     path('categories/edit/<int:category_id>/', category_view.edit_category, name='edit_category'),
     path('categories/delete/<int:category_id>/', category_view.delete_category, name='delete_category'),
+    
+     # Shows
+    path('shows/', show_view.shows, name='shows'),
+    path('shows-list/', show_view.shows_list, name='shows_list'),
+    path('shows/add/', show_view.add_show, name='add_show'),
+    path('shows/edit/<int:show_id>/', show_view.edit_show, name='edit_show'),
+    path('shows/delete/<int:show_id>/', show_view.delete_show, name='delete_show'),
 
  # Videos
     path('videos/', video_view.videos, name='videos'),

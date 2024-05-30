@@ -67,6 +67,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['email', 'name', 'phone_number', 'brand_name', 'password',]
+        exclude=['*']
 
     password = forms.CharField(
         min_length=10,
