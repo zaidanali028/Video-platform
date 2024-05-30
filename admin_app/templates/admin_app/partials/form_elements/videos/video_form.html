@@ -20,21 +20,7 @@
                 <p class="text-red-500 text-sm mt-2">{{ form.description.errors.0 }}</p>
             {% endif %}
         </div>
-        <!-- Second Row -->
-        <div class="mb-4 col-span-1">
-            <label for="categories" class="block text-gray-700">Categories</label>
-            {% render_field form.categories class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" %}
-            {% if form.categories.errors %}
-                <p class="text-red-500 text-sm mt-2">{{ form.categories.errors.0 }}</p>
-            {% endif %}
-        </div>
-        <div class="mb-4 col-span-1">
-            <label for="genres" class="block text-gray-700">Genres</label>
-            {% render_field form.genres class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" %}
-            {% if form.genres.errors %}
-                <p class="text-red-500 text-sm mt-2">{{ form.genres.errors.0 }}</p>
-            {% endif %}
-        </div>
+       
         <div class="mb-4 col-span-1">
             <label for="thumb_image_url" class="block text-gray-700">Video Thumbnail</label>
             <input accept=".jpg,.jpeg,.png,.gif,.bmp,.webp,.tiff" type="file" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" name="thumb_image_url"/>

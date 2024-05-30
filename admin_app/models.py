@@ -74,7 +74,9 @@ class Show(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    cover_image_url = models.URLField(max_length=200, blank=True, null=True) 
+    cover_image_url = models.URLField(max_length=200, blank=True, null=True)
+    categories = models.ManyToManyField(Category, related_name='videos_set')
+    genres = models.ManyToManyField(Genre, related_name='videos_set')
     
 
     def save(self, *args, **kwargs):
@@ -97,8 +99,6 @@ class Video(models.Model):
     title = models.CharField(max_length=255,unique=True,blank=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True)
     description = models.TextField()
-    categories = models.ManyToManyField(Category, related_name='videos_set')
-    genres = models.ManyToManyField(Genre, related_name='videos_set')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
     thumb_image_url = models.URLField(max_length=255, blank=True, null=True)
