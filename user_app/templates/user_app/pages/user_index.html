@@ -2,10 +2,20 @@
 
 {% load static %}
 
+{% load custom_filters %}
+{% comment %} 
+I added load custom_filters because I wanted to:
+  -- Find the number of active videos per each show
+  1. I created a folder called 'templatetags' to define my custom filters 
+  2. added my __init__.py file so that the folder will be treated as a python module
+  3.I created a folder called custom_filters and then defined the function active_count in the file and am using it on line 43 in this file
+{% endcomment %}
 
 {% block content %}
+{% include 'user_app/partials/hero.html' %}
 
-<div class="container">
+
+<div class="container mt-5">
     <div class="row">
         <div class="col-lg-8">
             {%    for genre, shows_data in genre_with_shows.items%}
@@ -30,8 +40,8 @@
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="{{ show.cover_image_url }}" style="background-image: url('{{ show.cover_image_url }}');">
 
-                                <div class="ep">18 / 18</div>
-                                <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                                <div class="ep">{{ show.video_set|active_count }}/{{ show.video_set.count }}</div>
+
                                 <div class="view"><i class="fa fa-eye"></i> 9141</div>
                             </div>
                             <div class="product__item__text">
@@ -52,31 +62,9 @@
             </div>
             {% endfor %}
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-8">
-            <div class="product__sidebar">
-                <div class="product__sidebar__view">
-                </div>
-            </div>
-            <div class="product__sidebar__comment">
-                <div class="section-title">
-                    <h5>For You</h5>
-                </div>
 
-                {%for show in random_picks%}
-                <div class="product__sidebar__comment__item">
-                    <div class="product__sidebar__comment__item__pic">
-                        <img src="{{show.cover_image_url}}" alt="">
-                    </div>
-                    <div class="product__sidebar__comment__item__text">
-                     
-                        <h5><a href="#">{{show}}</a></h5>
-                        <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-                    </div>
-                </div>
-                {%endfor%}
-              
-            </div>
-        </div>
+        {% include 'user_app/partials/for_you_section.html' %}
+
         
         
     </div>

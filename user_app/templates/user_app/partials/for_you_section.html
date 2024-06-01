@@ -1,0 +1,25 @@
+<div class="col-lg-4 col-md-6 col-sm-8">
+    <div class="product__sidebar">
+        <div class="product__sidebar__view">
+        </div>
+    </div>
+    <div class="product__sidebar__comment">
+        <div class="section-title">
+            <h5>For You</h5>
+        </div>
+
+        {%for show in random_picks%}
+        <div class="product__sidebar__comment__item">
+            <div class="product__sidebar__comment__item__pic">
+                <img src="{{show.cover_image_url}}" alt="">
+            </div>
+            <div class="product__sidebar__comment__item__text">
+             
+                <h5><a href="#">{{show}}</a></h5>
+                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
+            </div>
+        </div>
+        {%endfor%}
+      
+    </div>
+</div>

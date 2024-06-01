@@ -7,13 +7,12 @@ from admin_app.Forms.genres.Forms import GenreForm
 from django.core.paginator import Paginator
 @login_required(login_url='admin_login')    
 def genres_list(request):
-   print('wow')
+   
    request.session['page'] = 'Admin Genres'
    staff_count = User.objects.filter(is_staff=True, is_active=True).count()
    if staff_count<2:
         # super super admin and the admin using the platform,will take admin to config_platform incase the staff accounts aint 2
         return redirect('config_platform')
-   genres = Genre.objects.all()
    page_number = request.GET.get('page', 1)
    genres = Genre.objects.all()
    paginator = Paginator(genres, 10)  # Show 10 genres per page
