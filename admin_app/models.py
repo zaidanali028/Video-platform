@@ -30,6 +30,7 @@ class Genre(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)  
+        self.name=self.name.capitalize()
         super(Genre, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -55,6 +56,8 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)  
+        self.name=self.name.capitalize()
+        
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -81,6 +84,8 @@ class Show(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        self.title=self.title.capitalize()
+        
         super(Show, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -110,6 +115,8 @@ class Video(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)  
+        self.title=self.title.capitalize()
+        
         super(Video, self).save(*args, **kwargs)
 
     def __str__(self):

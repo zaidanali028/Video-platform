@@ -1,4 +1,4 @@
-
+{% load static%}
 <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="true">
     <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
       <nav>
@@ -95,7 +95,8 @@
                 <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 transition-colors duration-300 hover:bg-gray-200 hover:text-slate-700" href="javascript:;">
                   <div class="flex py-1">
                     <div class="my-auto">
-                      <img src="./assets/img/small-logos/logo-spotify.svg" class="inline-flex items-center justify-center mr-4 text-sm text-white bg-gradient-to-tl from-gray-900 to-slate-800 h-9 w-9 max-w-none rounded-xl" />
+                      <img src="{% static 'user_temp_files/assets/img/logo.png' %}" class="inline-flex items-center justify-center mr-4 text-sm text-white bg-gradient-to-tl from-gray-900 to-slate-800 h-9 w-9 max-w-none rounded-xl" />
+                  
                     </div>
                     <div class="flex flex-col justify-center">
                       <h6 class="mb-1 text-sm font-normal leading-normal"><span class="font-semibold">New album</span> by Travis Scott</h6>

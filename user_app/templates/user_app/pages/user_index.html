@@ -1,0 +1,87 @@
+{% extends 'user_app/user_main_layout.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            {%    for genre, shows_data in genre_with_shows.items%}
+            <div class="trending__product">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <div class="section-title">
+                            <h4> {{genre}}</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="btn__all">
+                            <a href="#" class="primary-btn">View All ({{shows_data.shows.count}}) <span class="arrow_right"></span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Repeat this block for each product -->
+                {%for show in shows_data.shows%}
+
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="{{ show.cover_image_url }}" style="background-image: url('{{ show.cover_image_url }}');">
+
+                                <div class="ep">18 / 18</div>
+                                <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                            </div>
+                            <div class="product__item__text">
+                                <ul>
+                                    {%for category in show.categories.all%}
+                                    <li>{{category}}</li>
+                                    {%endfor%}
+                                </ul>
+                                <h5><a href="anime-details.html">{{show}}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                {%endfor%}
+
+                    <!-- Repeat ends -->
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <div class="product__sidebar">
+                <div class="product__sidebar__view">
+                </div>
+            </div>
+            <div class="product__sidebar__comment">
+                <div class="section-title">
+                    <h5>For You</h5>
+                </div>
+
+                {%for show in random_picks%}
+                <div class="product__sidebar__comment__item">
+                    <div class="product__sidebar__comment__item__pic">
+                        <img src="{{show.cover_image_url}}" alt="">
+                    </div>
+                    <div class="product__sidebar__comment__item__text">
+                     
+                        <h5><a href="#">{{show}}</a></h5>
+                        <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
+                    </div>
+                </div>
+                {%endfor%}
+              
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+{% endblock content %}
+
