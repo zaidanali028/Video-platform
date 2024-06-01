@@ -1,3 +1,5 @@
+{% load custom_filters %}
+
 {% for show in shows %}
 {% if forloop.last  and  shows.has_next%}
 
@@ -16,6 +18,7 @@
         {% endif %}
         </span>
     </td>
+    <td>Active/Total  {{ show.video_set|active_count }}/{{ show.video_set.count }}</td>
     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
         <button onclick="openModal()" hx-get="{% url 'edit_show' show.id %}" hx-target="#modal_body" class="openModal text-indigo-600 hover:text-indigo-900">Edit</button>
         <button onclick="confirmDelete({{ show.id }})" class="text-red-600 hover:text-red-900">Delete</button>

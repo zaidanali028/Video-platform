@@ -78,8 +78,8 @@ class Show(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     cover_image_url = models.URLField(max_length=200, blank=True, null=True)
-    categories = models.ManyToManyField(Category, related_name='videos_set')
-    genres = models.ManyToManyField(Genre, related_name='videos_set')
+    categories = models.ManyToManyField(Category, related_name='categories_set')
+    genres = models.ManyToManyField(Genre, related_name='genres_set')
     
 
     def save(self, *args, **kwargs):
