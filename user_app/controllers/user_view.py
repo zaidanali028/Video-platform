@@ -147,6 +147,13 @@ def video_page(request):
    return HttpResponse('Video Page :)')
 
 
-def video_detail_page(request):
+
+
+def show_page(request,show_slug):
+   show = get_object_or_404(Show, slug=show_slug)
+   context={'show':show}
    
-   return HttpResponse('Video Detail Page :)')
+   return render(request, 'user_app/pages/shows/show.html', context)
+  
+   
+    

@@ -1,0 +1,52 @@
+<section class="anime-details spad">
+    <div class="container">
+        <div class="anime__details__content">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="anime__details__pic set-bg" data-setbg="{{show.cover_image_url}}" style="background-image: url(&quot;{{show.cover_image_url}}&quot;);">
+                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="anime__details__text">
+                        <div class="anime__details__title">
+                            <h3>{{show}}</h3>
+                        </div>
+                       
+                        <p>{{show.video_set.first.description}}</p>
+                        <div class="anime__details__widget">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <ul>
+                                       
+                                        <li><span>Date aired:</span>  {{ show.created_at|date:"M , Y" }}</li>
+                                        <li><span>Status:</span> {% if show.status == "active" %}Airing{% else %}Not Aired{% endif %}</li>
+                                        <li><span>Genre:</span>{% for genre in show.video_set.first.show.genres.all %}
+                                            {{ genre.name }}
+                                            {% if not forloop.last %}, {% endif %}
+                                        {% endfor %}</li>
+                                        <li><span>Category:</span>{% for category in show.video_set.first.show.categories.all %}
+                                            {{ category.name }}
+                                            {% if not forloop.last %}, {% endif %}
+                                        {% endfor %}</li>
+                                        <li><span>Parts/Epes:</span>{{show.video_set.count}}</li>
+                                        <li><span>Views:</span> Not does yet</li>
+
+
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                
+                            </div>
+                        </div>
+                        <div class="anime__details__btn">
+                            <a href="anime-watching.html" class="watch-btn"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </section>

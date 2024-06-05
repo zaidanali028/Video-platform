@@ -15,8 +15,17 @@ urlpatterns = [
       path('categories/<slug:category_slug>/', user_view.categories_page, name='categories_page'),
     path('user-categories-list/<slug:slug>/', user_view.user_categories_list, name='user_categories_list'),
     
-    path('video', user_view.video_page ,name='video_page'),
-    path('video/detail', user_view.video_detail_page ,name='video_detail_page'),
+  
+    
+    
+    # Show
+    
+    # this is the endpoint that displays the modal popup for show details
+      path('shows/<slug:show_slug>/', user_view.show_page, name='show_page'),
+      
+      # responsible for taking client the the actual video page
+      path('show/watch/<slug:video_slug>/', user_view.video_page, name='video_page'),
+    
     
 
      

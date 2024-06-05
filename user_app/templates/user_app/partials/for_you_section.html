@@ -9,7 +9,7 @@
         </div>
 
         {%for show in random_picks%}
-        <div class="product__sidebar__comment__item">
+        <div class="product__sidebar__comment__item" onclick="openShowModal()" hx-get="{% url 'show_page' show.slug %}" hx-target="#show_modal_body">
             <div class="product__sidebar__comment__item__pic">
                 <img src="{{show.cover_image_url}}" alt="">
             </div>

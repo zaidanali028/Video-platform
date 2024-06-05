@@ -13,7 +13,30 @@ I added load custom_filters because I wanted to:
 
 {% block content %}
 {% include 'user_app/partials/hero.html' %}
+ <!-- Modal -->
+ <div class="modal fade" id="darkModal" tabindex="-1" aria-labelledby="darkModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+       <div class="modal-header">
+        {% comment %}
+                <h5 class="modal-title" id="darkModalLabel">Dark Modal Title</h5>
+        {% endcomment %}
 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+            <div class="modal-body"id="show_modal_body" >
+                <div class="d-flex justify-content-center align-items-center vh-100">
+                    {% include 'user_app/partials/htmx_loader.html' %}
+            
+                    </div>
+              
+            </div>
+            
+        </div>
+    </div>
+</div>
 
 <div class="container mt-5">
     <div class="row">
@@ -36,7 +59,7 @@ I added load custom_filters because I wanted to:
                     <!-- Repeat this block for each product -->
                 {%for show in shows_data.shows%}
 
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="col-lg-4 col-md-6 col-sm-6" onclick="openShowModal()" hx-get="{% url 'show_page' show.slug %}" hx-target="#show_modal_body" >
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="{{ show.cover_image_url }}" style="background-image: url('{{ show.cover_image_url }}');">
 
