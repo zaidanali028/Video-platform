@@ -15,7 +15,7 @@ I added load custom_filters because I wanted to:
         
     <div class="col-lg-4 col-md-6 col-sm-6">
     {% endif %}
-        <div class="product__item">
+        <div class="product__item" onclick="openShowModal()" hx-get="{% url 'show_page' show.slug %}" hx-target="#show_modal_body">
             <div class="product__item__pic set-bg" data-setbg="{{ show.cover_image_url }}" style="background-image: url('{{ show.cover_image_url }}');">
 
                 <div class="ep">{{ show.video_set|active_count }}/{{ show.video_set.count }}</div>

@@ -142,11 +142,6 @@ def categories_page(request, category_slug):
 
     
     
-def video_page(request):
-   
-   return HttpResponse('Video Page :)')
-
-
 
 
 def show_page(request,show_slug):
@@ -156,4 +151,19 @@ def show_page(request,show_slug):
    return render(request, 'user_app/pages/shows/show.html', context)
   
    
+def video_page(request,show_slug,video_slug):
+   # Get the show object based on the show_slug
+   show = get_object_or_404(Show, slug=show_slug)
     
+    # Get the video object related to the show and video_slug
+   video = get_object_or_404(Video, show=show, slug=video_slug)
+    
+    # Prepare the context with the show and video objects
+   context = {
+      'show': show,
+      'video': video,
+
+   }
+   
+   
+   return HttpResponse(context)

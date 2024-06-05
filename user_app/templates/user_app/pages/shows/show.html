@@ -41,7 +41,8 @@
                             </div>
                         </div>
                         <div class="anime__details__btn">
-                            <a href="anime-watching.html" class="watch-btn"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+                            <a href="{% url 'video_page' show.slug show.video_set.first.slug %}" class="watch-btn"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+
                             </div>
                         </div>
                     </div>

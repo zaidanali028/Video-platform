@@ -24,8 +24,8 @@ urlpatterns = [
       path('shows/<slug:show_slug>/', user_view.show_page, name='show_page'),
       
       # responsible for taking client the the actual video page
-      path('show/watch/<slug:video_slug>/', user_view.video_page, name='video_page'),
-    
+    path('show/<slug:show_slug>/watch/<slug:video_slug>/', user_view.video_page, name='video_page'),
+
     
 
      

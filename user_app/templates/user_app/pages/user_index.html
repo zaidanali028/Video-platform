@@ -13,30 +13,9 @@ I added load custom_filters because I wanted to:
 
 {% block content %}
 {% include 'user_app/partials/hero.html' %}
- <!-- Modal -->
- <div class="modal fade" id="darkModal" tabindex="-1" aria-labelledby="darkModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-       <div class="modal-header">
-        {% comment %}
-                <h5 class="modal-title" id="darkModalLabel">Dark Modal Title</h5>
-        {% endcomment %}
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div> 
-            <div class="modal-body"id="show_modal_body" >
-                <div class="d-flex justify-content-center align-items-center vh-100">
-                    {% include 'user_app/partials/htmx_loader.html' %}
-            
-                    </div>
-              
-            </div>
-            
-        </div>
-    </div>
-</div>
+{% comment %} show modal here {% endcomment %}
+{% include 'user_app/partials/show_modal.html' %}
 
 <div class="container mt-5">
     <div class="row">
