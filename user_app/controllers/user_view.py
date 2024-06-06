@@ -152,18 +152,41 @@ def show_page(request,show_slug):
   
    
 def video_page(request,show_slug,video_slug):
+   user_with_brand = User.objects.filter(brand_name__isnull=False).first()
+   genres = Genre.objects.filter(status='active').annotate(genre_count=Count('genres_set')).filter(genre_count__gt=0).order_by('-created_at')[:5]
+   categories = Category.objects.filter(status='active').annotate(show_count=Count('categories_set')).filter(show_count__gt=0).order_by('-created_at')[:5]
+   
+   
+   
+   if user_with_brand:
+ 
+      site_name=user_with_brand.brand_name
+  
    # Get the show object based on the show_slug
-   show = get_object_or_404(Show, slug=show_slug)
-    
+   show = get_object_or_404(Show, slug=show_slug,status='active')
+   page_title =" ".join(show.slug.split('-')).capitalize()
+   request.session['page'] = page_title
+   
+   # request.session['page'] = page_title
     # Get the video object related to the show and video_slug
-   video = get_object_or_404(Video, show=show, slug=video_slug)
-    
+   video = get_object_or_404(Video, show=show, slug=video_slug,status='active')
+   videos = show.video_set.filter(status="active")
+   current_index = list(videos).index(video)
+   total_videos=videos.count()
+   last_video_index = total_videos - 1
     # Prepare the context with the show and video objects
    context = {
       'show': show,
       'video': video,
+      'current_index':current_index,
+      'last_video_index':last_video_index,
+      'total_videos':total_videos ,
+      'page_title':page_title,
+      'site_name':site_name,
+      'categories':categories,
+      'genres':genres
 
    }
    
    
-   return HttpResponse(context)
+   return render(request,'user_app/pages/video-detail.html',context)

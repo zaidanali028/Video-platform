@@ -95,8 +95,8 @@ class Show(models.Model):
 
 
 class Video(models.Model):
-    class Meta:
-          ordering=['-updated_at','created_at']
+    # class Meta:
+        #   ordering=['-updated_at','created_at']
     STATUS_CHOICES = [
         ('active', 'Active'),
         ('inactive', 'Inactive'),
