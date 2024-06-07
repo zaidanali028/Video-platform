@@ -5,10 +5,11 @@ from ..models import User, Video,Show
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from admin_app.Forms.videos.Forms import VideoForm
-# from django.core.exceptions import ValidationError
-# from django.utils.translation import gettext_lazy as _
+from admin_app.services import FCS
 import cloudinary.uploader
-from time import sleep
+import environ
+
+
 @login_required(login_url='admin_login')
 def videos_list(request):
     request.session['page'] = 'Admin Videos'
@@ -24,10 +25,8 @@ def videos_list(request):
     context = {
         "videos": page_obj
     }
-    if request.htmx:
-        return render(request, 'admin_app/partials/list_elements/videos_list.html', context)
+    return render(request, 'admin_app/partials/list_elements/videos_list.html', context)
 
-    return render(request, 'admin_app/videos_list.html', context)
 
 @login_required(login_url='admin_login')
 def videos(request):
@@ -51,6 +50,7 @@ def add_video(request):
         # Validate and upload the thumbnail image
         if thumb_image_url:
             if thumb_image_url.content_type.startswith('image'):
+                
                 thumb_result = cloudinary.uploader.upload(thumb_image_url)
                 changed_data['thumb_image_url'] = thumb_result['secure_url']
             else:
@@ -59,8 +59,12 @@ def add_video(request):
         # Validate and upload the video file
         if video_file:
             if video_file.content_type.startswith('video'):
-                video_result = cloudinary.uploader.upload_large(video_file,)
-                changed_data['video_url'] = video_result['secure_url']
+                # video_result = cloudinary.uploader.upload_large(video_file,)
+                uploader=FCS.Uploader()
+                changed_data['video_url'] =  uploader.upload(video_file)
+                # print("changed_data['video_url']")
+                # print(changed_data['video_url'])
+                
             else:
                 changed_data['video_url'] = None  # To avoid failing validation later
 
@@ -121,8 +125,11 @@ def edit_video(request, video_id):
         # Validate and upload the video file
         if video_file:
             if video_file.content_type.startswith('video'):
-                video_result = cloudinary.uploader.upload_large(video_file)
-                changed_data['video_url'] = video_result['secure_url']
+                uploader=FCS.Uploader()
+                changed_data['video_url'] =  uploader.upload(video_file)
+                # video_result = cloudinary.uploader.upload_large(video_file)
+                # changed_data['video_url'] = video_result['secure_url']
+            
             else:
                 changed_data['video_url'] = video.video_url if video.video_url else None  # use defaulted one instead of None if the file specificed aint an video
         else:

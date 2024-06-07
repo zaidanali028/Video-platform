@@ -140,7 +140,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-      const videoPlayer = document.getElementById('videoPlayer');
+      const videoPlayer = document.getElementById('player');
       const links = document.querySelectorAll('.video_link');
 
       // Extract video details from the show object's video_set.all attribute
@@ -161,9 +161,11 @@
 
       // Function to load video by index
       const loadVideo = (index) => {
+
           const showSlug = '{{ show.slug }}';
           const videoSlug = videos[index].slug;
           const newURL = `/show/${showSlug}/watch/${videoSlug}/`;
+
 
           // Update the URL without reloading the page
         //  history.replaceState(null, '', newURL);

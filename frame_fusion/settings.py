@@ -10,16 +10,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+
+import os
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+
+# read th .env file
+environ.Env.read_env(env_file=str(BASE_DIR) + '/.env')    
+
+
+
+
+
+
 import constants
 import cloudinary
-# import environ
 
-# env = environ.Env()
-# environ.Env.read_env()  # reading .env file
 
 CLOUDINARY_CLOUD_NAME = constants.CLOUDINARY_CLOUD_NAME
 CLOUDINARY_API_KEY = constants.CLOUDINARY_API_KEY
@@ -37,9 +47,9 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-slmy4cb-pviv=9j)^5dfx@7rq7nz(-dxn_9_7$5b22*h1-7aai'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -67,7 +77,7 @@ INSTALLED_APPS = [
     
     
     'widget_tweaks',
-     "django_htmx",
+    #  "django_htmx",
 
   
     
@@ -83,7 +93,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django_htmx.middleware.HtmxMiddleware",
+    # "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'frame_fusion.urls'
