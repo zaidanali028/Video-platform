@@ -30,7 +30,7 @@
 
 
         <div class="flex justify-start">
-            <button onclick="openModal()" hx-get="{% url 'add_show'%}" hx-target="#modal_body"  class="openModal bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102 text-white px-4 py-2 rounded shadow hover:bg-blue-600">
+            <button onclick="openModal()"  hx-get="{% url 'add_show'%}" hx-target="#modal_body" hx-swap="innerHTML" class="openModal bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102 text-white px-4 py-2 rounded shadow hover:bg-blue-600">
                 Add Show
             </button>
 

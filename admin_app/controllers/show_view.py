@@ -50,15 +50,16 @@ def add_show(request):
             else:
                 changed_data['cover_image_url'] = None  # To avoid failing validation later
         
+        # this is to prevent making a show active when it does not have any video attached to it
+        changed_data['status']='inactive'
+        
         # Initialize the form with the updated data
         form = ShowForm(data=changed_data)
 
         if form.is_valid():
-            show=form.save(commit=False)
+            show=form.save()
             # this is to prevent making a show active when it does not have any video attached to it
-            # because its now being created
-            show.status='inactive'
-            show.save()
+          
             return HttpResponse(status=204, headers={'HX-Trigger': 'show_list_update'})
         else:
             # Add errors for invalid file types
