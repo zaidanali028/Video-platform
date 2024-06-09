@@ -1,0 +1,46 @@
+{% load widget_tweaks %}
+
+<form hx-post="{{request.path}}" hx-indicator="#loading">
+    <div class="input__item ">
+      {%  render_field  form.name  class="col-md-12" type="text" placeholder="Name" %}
+        <span class="icon_profile"></span>
+        {% if form.name.errors %}
+        <p class="text-danger small mt-2">
+            {{ form.name.errors.0 }}
+        </p>
+    {% endif %}
+    </div>
+    <div class="input__item ">
+        {%  render_field  form.email  class="col-md-12" type="text" placeholder="Email address" %}
+          <span class="icon_mail"></span>
+          {% if form.email.errors %}
+          <p class="text-danger small mt-2">
+              {{ form.email.errors.0 }}
+          </p>
+      {% endif %}
+      </div>
+      <div class="input__item ">
+        <input type="password" class="col-md-12" id="passwordInput" placeholder="Password" name="password" {% if password %}
+        value="{{ password }}" {% else %} value="" {% endif %} />
+
+          <span class="icon_lock"></span>
+          {% if form.password.errors %}
+          <p class="text-danger small mt-2">
+              {{ form.password.errors.0 }}
+          </p>
+      {% endif %}
+      </div>
+      <div class="input__item ">
+        <input id="passwordInput" type="password" class="col-md-12" class="grow" name="confirm_password"
+        placeholder="Re-type Password"  {% if confirm_password %} value="{{ confirm_password }}" {% endif %} />
+
+          <span class="icon_lock"></span>
+          {% if form.confirm_password.errors %}
+          <p class="text-danger small mt-2">
+              {{ form.confirm_password.errors.0 }}
+          </p>
+      {% endif %}
+      </div>
+   
+    <button type="submit" class="site-btn">Login Now</button>
+</form>

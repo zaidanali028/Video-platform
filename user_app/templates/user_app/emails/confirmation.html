@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Activate Your Account</title>
+    <style>
+        .email-body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .email-header {
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: center;
+        }
+        .email-content {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #e2e2e2;
+            border-radius: 5px;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-body">
+        <div class="email-header">
+            <h1>Welcome to {{ brand_name }}!</h1>
+        </div>
+        <div class="email-content">
+            <p>Hello {{ name }},</p>
+            <p>Thank you for registering with {{ brand_name }}. To complete your registration, please confirm your email address by clicking the link below:</p>
+            <p><a href="http://{{ domain }}{% url 'activate_user' uidb64=uid token=token %}" class="button">Activate Your Account</a></p>
+            <p>If the above link does not work, you can copy and paste the following URL into your browser:</p>
+            <p>http://{{ domain }}{% url 'activate_user' uidb64=uid token=token %}</p>
+            <p>After confirming your email, you’ll be able to log in and start using our services.</p>
+            <p>If you did not create an account, please ignore this email.</p>
+            <p>Best regards,</p>
+            <p>The {{ brand_name }} Team</p>
+        </div>
+    </div>
+</body>
+</html>
+

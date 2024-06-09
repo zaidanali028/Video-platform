@@ -1,16 +1,17 @@
 
-from django.http import HttpResponse
 from admin_app.models import Category,Genre,Video,Show,User
 from django.shortcuts import render,redirect,get_object_or_404
 from django.core.paginator import Paginator
 from time import sleep
 from django.db.models import Count
-
+from admin_app.Forms.config_platform.Forms import UserForm
+from admin_app.services import AppConfig
+from django.utils.http import urlsafe_base64_decode
 def index_page(request):
    request.session['page'] = 'Index'
    # get all users who has a brand_name
   
-   user_with_brand = User.objects.filter(brand_name__isnull=False,brand_image_url__isnull=False).first()
+   user_with_brand = AppConfig.Ownership.get_owner()
    site_name = user_with_brand.brand_name if user_with_brand else None
    site_logo = user_with_brand.brand_image_url if user_with_brand else None
 
@@ -71,6 +72,9 @@ def index_page(request):
    return render(request,'user_app/pages/user_index.html',context)
    
 
+   
+      
+
 def user_genres_list(request, slug):
     genre = get_object_or_404(Genre, slug=slug)
     shows = Show.objects.filter(genres=genre, status='active')
@@ -91,7 +95,8 @@ def genres_page(request, genre_slug):
    categories = Category.objects.filter(status='active').annotate(show_count=Count('categories_set')).filter(show_count__gt=0).order_by('-created_at')[:5]
    genres = Genre.objects.filter(status='active').annotate(genre_count=Count('genres_set')).filter(genre_count__gt=0).order_by('-created_at')[:5]
    random_picks = Show.objects.filter(status='active').order_by('?')[:5]
-   user_with_brand = User.objects.filter(brand_name__isnull=False,brand_image_url__isnull=False).first()
+   user_with_brand = AppConfig.Ownership.get_owner()
+  
    site_name = user_with_brand.brand_name if user_with_brand else None
    site_logo = user_with_brand.brand_image_url if user_with_brand else None
    context = {
@@ -124,7 +129,8 @@ def categories_page(request, category_slug):
    page_title = ' '.join(category_slug.split('-')).capitalize()
    request.session['page'] = page_title
    random_picks = Show.objects.filter(status='active').order_by('?')[:5]
-   user_with_brand = User.objects.filter(brand_name__isnull=False,brand_image_url__isnull=False).first()
+   user_with_brand = AppConfig.Ownership.get_owner()
+
    site_name = user_with_brand.brand_name if user_with_brand else None
    site_logo = user_with_brand.brand_image_url if user_with_brand else None
    
@@ -153,7 +159,8 @@ def show_page(request,show_slug):
   
    
 def video_page(request,show_slug,video_slug):
-   user_with_brand = User.objects.filter(brand_name__isnull=False,brand_image_url__isnull=False).first()
+   user_with_brand = AppConfig.Ownership.get_owner()
+
    genres = Genre.objects.filter(status='active').annotate(genre_count=Count('genres_set')).filter(genre_count__gt=0).order_by('-created_at')[:5]
    categories = Category.objects.filter(status='active').annotate(show_count=Count('categories_set')).filter(show_count__gt=0).order_by('-created_at')[:5]
    

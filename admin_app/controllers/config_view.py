@@ -237,8 +237,8 @@ def admin_config(request):
     
     request.session['page'] = 'Admin Config'
     user = request.user
-    password=''
-    confirm_password=''
+    password=None
+    confirm_password=None
     
     
     
@@ -285,6 +285,7 @@ def admin_config(request):
         if form.is_valid():
             # Save the form data to the database
             if changed_data['password'] :
+                    # client provided a new password ,authenticate user using the old password and if it succeds,update the password of the client
                    user_auth=authenticate(request,email=request.user.email,password=changed_data['old_password'])
                    if user_auth is not  None:
                        # user provided new password

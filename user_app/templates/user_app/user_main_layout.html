@@ -41,9 +41,12 @@
             background-color: #0b0c2a;
         }
     </style>
+
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
-<body>
+<body hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
     <!-- Page Preloder -->
     <div id="preloder" style="display: none;">
         <div class="loader" style="display: none;"></div>
