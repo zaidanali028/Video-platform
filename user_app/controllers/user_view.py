@@ -9,14 +9,10 @@ from django.db.models import Count
 def index_page(request):
    request.session['page'] = 'Index'
    # get all users who has a brand_name
-   # 1. (brand_name__isnull=True), will return users with no brand name
-   # 2 ...exclude() will filter out and return only users with brand name
-   # 3. .first() will get the first user that matches the above criteria
-   
-   user_with_brand = User.objects.filter(brand_name__isnull=False).first()
-   if user_with_brand:
- 
-      site_name=user_with_brand.brand_name
+  
+   user_with_brand = User.objects.filter(brand_name__isnull=False,brand_image_url__isnull=False).first()
+   site_name = user_with_brand.brand_name if user_with_brand else None
+   site_logo = user_with_brand.brand_image_url if user_with_brand else None
 
      
    # Retrieve just 5 newly created genres that have at least a show
@@ -56,7 +52,7 @@ def index_page(request):
    
 
    
-   context={'genre_with_shows':genre_with_shows,'site_name':site_name,'random_picks':random_picks,'categories':categories,'genres':genres}
+   context={'genre_with_shows':genre_with_shows,'site_name':site_name,'site_logo':site_logo,'random_picks':random_picks,'categories':categories,'genres':genres}
    
    # response example('genre_with_shows'):
 #  ==============  
@@ -95,11 +91,13 @@ def genres_page(request, genre_slug):
    categories = Category.objects.filter(status='active').annotate(show_count=Count('categories_set')).filter(show_count__gt=0).order_by('-created_at')[:5]
    genres = Genre.objects.filter(status='active').annotate(genre_count=Count('genres_set')).filter(genre_count__gt=0).order_by('-created_at')[:5]
    random_picks = Show.objects.filter(status='active').order_by('?')[:5]
-   user_with_brand = User.objects.filter(brand_name__isnull=False).first()
+   user_with_brand = User.objects.filter(brand_name__isnull=False,brand_image_url__isnull=False).first()
    site_name = user_with_brand.brand_name if user_with_brand else None
+   site_logo = user_with_brand.brand_image_url if user_with_brand else None
    context = {
         'genre_slug': genre_slug,
         'site_name': site_name,
+        'site_logo':site_logo,
         'categories': categories,
         'genres':genres,
         'random_picks': random_picks,
@@ -126,11 +124,14 @@ def categories_page(request, category_slug):
    page_title = ' '.join(category_slug.split('-')).capitalize()
    request.session['page'] = page_title
    random_picks = Show.objects.filter(status='active').order_by('?')[:5]
-   user_with_brand = User.objects.filter(brand_name__isnull=False).first()
+   user_with_brand = User.objects.filter(brand_name__isnull=False,brand_image_url__isnull=False).first()
    site_name = user_with_brand.brand_name if user_with_brand else None
+   site_logo = user_with_brand.brand_image_url if user_with_brand else None
+   
    context = {
         'category_slug': category_slug,
         'site_name': site_name,
+        'site_logo':site_logo,
         'categories': categories,
         'genres':genres,
         'random_picks': random_picks,
@@ -152,15 +153,13 @@ def show_page(request,show_slug):
   
    
 def video_page(request,show_slug,video_slug):
-   user_with_brand = User.objects.filter(brand_name__isnull=False).first()
+   user_with_brand = User.objects.filter(brand_name__isnull=False,brand_image_url__isnull=False).first()
    genres = Genre.objects.filter(status='active').annotate(genre_count=Count('genres_set')).filter(genre_count__gt=0).order_by('-created_at')[:5]
    categories = Category.objects.filter(status='active').annotate(show_count=Count('categories_set')).filter(show_count__gt=0).order_by('-created_at')[:5]
    
+   site_name=user_with_brand.brand_name if user_with_brand else None
+   site_logo = user_with_brand.brand_image_url if user_with_brand else None
    
-   
-   if user_with_brand:
- 
-      site_name=user_with_brand.brand_name
   
    # Get the show object based on the show_slug
    show = get_object_or_404(Show, slug=show_slug,status='active')
@@ -183,6 +182,7 @@ def video_page(request,show_slug,video_slug):
       'total_videos':total_videos ,
       'page_title':page_title,
       'site_name':site_name,
+      'site_logo':site_logo,
       'categories':categories,
       'genres':genres
 

@@ -31,14 +31,12 @@ import constants
 import cloudinary
 
 
-CLOUDINARY_CLOUD_NAME = constants.CLOUDINARY_CLOUD_NAME
-CLOUDINARY_API_KEY = constants.CLOUDINARY_API_KEY
-CLOUDINARY_API_SECRET = constants.CLOUDINARY_API_SECRET
+
 
 cloudinary.config( 
-  cloud_name = CLOUDINARY_CLOUD_NAME, 
-  api_key = CLOUDINARY_API_KEY, 
-  api_secret = CLOUDINARY_API_SECRET 
+  cloud_name = constants.CLOUDINARY_CLOUD_NAME, 
+  api_key = constants.CLOUDINARY_API_KEY, 
+  api_secret = constants.CLOUDINARY_API_SECRET 
 )
 # remove this before deployment
 

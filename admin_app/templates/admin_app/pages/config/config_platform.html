@@ -21,18 +21,21 @@
 
 
             <form class="form" 
+            enctype="multipart/form-data"
             hx-post="{% url 'post-config' %}" 
             hx-target="this" 
-            hx-indicator="#loading" 
-            hx-on="htmx:afterRequest: if (event.detail.xhr.getResponseHeader('HX-Redirect')) { window.location.href = event.detail.xhr.getResponseHeader('HX-Redirect'); }">
+            hx-indicator="#loading" >
          
 
 
                 <div class="col-span-1">
                     {% include 'admin_app/partials/form_elements/name_res.html' %}
                     {% include 'admin_app/partials/form_elements/email_res.html' %}
+
                     {% include 'admin_app/partials/form_elements/phone_number_res.html' %}
                     {% include 'admin_app/partials/form_elements/brand_name_res.html' %}
+                    {% include 'admin_app/partials/form_elements/brand_image_url_res.html' %}
+
                     {% include 'admin_app/partials/form_elements/password_res.html' %}
 
 

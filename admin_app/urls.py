@@ -12,6 +12,9 @@ urlpatterns = [
     path('post-config/validate-phone-number', config_view.validate_phone_number, name='validate_phone_number'),
     path('post-config/validate-brand-name', config_view.validate_brand_name, name='validate_brand_name'),
     path('post-config/validate-password', config_view.validate_password, name='validate_password'),
+    # path('post-config/validate-brand-image-url', config_view.validate_brand_image_url, name='validate_brand_image_url'),
+    #    config for admin panel
+    path('admin-config/', config_view.admin_config ,name='admin_config'),
     
 
     # admin-endpoint
@@ -49,8 +52,14 @@ urlpatterns = [
     path('videos/edit/<int:video_id>/', video_view.edit_video, name='edit_video'),
     path('videos/delete/<int:video_id>/', video_view.delete_video, name='delete_video'),
 
+
+
 # auth endpoints
     path('login/', auth_view.admin_login ,name='admin_login'),
+
+   
+   
+
 
      
 ]

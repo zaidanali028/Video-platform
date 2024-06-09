@@ -119,7 +119,7 @@ document.addEventListener("htmx:response", function(event) {
     if (success === 'true') {
         Swal.fire({
             title: 'Success!',
-            text: 'Your Account Has Been created successfully!',
+            text: 'Successful Transaction!',
             icon: 'success',
             confirmButtonText: 'OK'
         }).then(() => {

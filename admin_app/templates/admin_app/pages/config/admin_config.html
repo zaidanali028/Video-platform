@@ -1,0 +1,22 @@
+{% extends 'admin_app/admin_main_layout.html' %}
+
+{% load static %}
+
+
+
+{% block content %}
+<div class="max-w-lg mx-auto p-6 bg-white shadow-xl rounded-lg">
+    <!-- Form Header -->
+    <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold bg-gradient-to-tl from-purple-700 to-pink-500 text-transparent bg-clip-text">
+            Update Your Video Platform
+        </h2>
+        <p class="mt-2 text-gray-600">And Have An Awesome Experience!</p>
+    </div>
+
+    <!-- Form Body -->
+{% include 'admin_app/partials/form_elements/config/config_form.html' %}
+    
+</div>
+
+{% endblock content %}

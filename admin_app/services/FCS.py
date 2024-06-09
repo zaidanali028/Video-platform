@@ -1,20 +1,18 @@
 import pyrebase
 import os
-import environ
-
+import constants
 
 # AN FCS CLOUD UTIL TO HELP ME PURPOSELY FOR UPLOADING LARGER MIDEA FILES
 class Uploader:
     def __init__(self):
-        env = environ.Env()
         firebase = pyrebase.initialize_app({
-        "apiKey": env('API_KEY'),
-        "authDomain": env('AUTH_DOMAIN'),
-        "projectId": env('PROJECT_ID'),
-        "storageBucket": env('STORAGE_BUCKET'),
-        "messagingSenderId": env('MESSAGING_SENDER_ID'),
-        "appId": env('APP_ID'),
-        "measurementId": env('MEASUREMENT_ID'),
+        "apiKey": constants.API_KEY,
+        "authDomain":constants.AUTH_DOMAIN,
+        "projectId": constants.PROJECT_ID,
+        "storageBucket":constants.STORAGE_BUCKET,
+        "messagingSenderId": constants.MESSAGING_SENDER_ID,
+        "appId": constants.APP_ID,
+        "measurementId": constants.MEASUREMENT_ID,
         "databaseURL": ""
     })
         self.storage = firebase.storage()

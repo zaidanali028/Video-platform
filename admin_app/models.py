@@ -9,9 +9,11 @@ class User(AbstractUser):
     name = models.CharField(max_length=255,null=True)
     phone_number = models.CharField(max_length=20, unique=True, null=True)
     brand_name = models.CharField(max_length=255, unique=True, null=True)
-    profile_image_url = models.URLField(max_length=255, blank=True, null=True)
+    brand_image_url = models.URLField(max_length=255, blank=True, null=True)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS=[]
+    
+    
 
         
 class Genre(models.Model):

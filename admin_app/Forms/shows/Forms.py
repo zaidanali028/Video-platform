@@ -22,6 +22,6 @@ class ShowForm(forms.ModelForm):
     def clean_cover_image_url(self):
         cover_image_url = self.cleaned_data.get('cover_image_url')
         if not cover_image_url:
-            raise forms.ValidationError("A cover image URL is required.")
+            raise forms.ValidationError("A cover image  is required.")
         return cover_image_url
  
