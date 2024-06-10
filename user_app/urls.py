@@ -5,11 +5,22 @@ from .controllers import user_view,auth_view
 
 urlpatterns = [
     path('', user_view.index_page ,name='index_page'),
-    path('register/', auth_view.registration_page ,name='registration_page'),
     
-    # user account activation from email
     
-    path('user/activate/<uidb64>/<token>/', auth_view.activate_user, name='activate_user'),
+    # auth endpoints
+    path('auth/register/', auth_view.registration_page ,name='registration_page'),
+     # user account activation from email
+    path('auth/activate/<uidb64>/<token>/', auth_view.activate_user, name='activate_user'),
+    # forgot-password
+    path('auth/forgot-password/', auth_view.forgot_password_page ,name='forgot_password_page'),
+     # login
+    path('auth/login/', auth_view.login_page ,name='login_page'),
+    # logout
+    path('auth/logout/', auth_view.logout_page ,name='logout_page'),
+   
+    
+       # user account reset from email
+    path('auth/reset/<uidb64>/<token>/', auth_view.password_reset_confirm, name='password_reset_confirm'),
     
 
     # genres 

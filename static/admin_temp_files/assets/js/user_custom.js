@@ -56,3 +56,55 @@ if (data2 === 'true') {
         removeQueryParam('activated');
     });    
 }
+
+const data3 = getQueryParam('authenticated');
+if (data3 === 'true') {
+    Swal.fire({
+        title: 'Log in success!',
+        text: 'Enjoy An Awesome Immersive Streaming Experience!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        // Remove the 'success' query parameter from the URL
+        removeQueryParam('authenticated');
+    });
+}else if(data3 === 'false'){
+    Swal.fire({
+        title: 'Logged Out!',
+        text: 'Session revoked!',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        // Remove the 'success' query parameter from the URL
+        removeQueryParam('authenticated');
+    });    
+}
+
+const data4 = getQueryParam('reset');
+
+if (data4 === 'true') {
+    Swal.fire({
+        title: 'Reset Initiation Success!',
+        text: 'Please check your email for further instructions',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        // Remove the 'success' query parameter from the URL
+        removeQueryParam('reset');
+    });
+}
+
+
+const data5 = getQueryParam('updated');
+
+if (data5 === 'true') {
+    Swal.fire({
+        title: 'Password Reset Success!',
+        text: 'Your Password Was successfully Updated,You Are Logged In!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        // Remove the 'success' query parameter from the URL
+        removeQueryParam('updated');
+    });
+}

@@ -18,8 +18,8 @@ I added load custom_filters because I wanted to:
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="normal__breadcrumb__text">
-                    <h2>Sign Up</h2>
-                    <p>Welcome to the official Anime&nbsp;blog.</p>
+                    <h2>Log In</h2>
+                    <p>Reactivate Your Sessione&nbsp;</p>
                 </div>
             </div>
         </div>
@@ -32,10 +32,10 @@ I added load custom_filters because I wanted to:
         <div class="row">
             <div class="col-md-12">
                 <div class="login__form">
-                    <h3>Sign Up</h3>
-                {% include 'user_app/partials/form_elements/user/registration_form.html' %}
+                    <h3>Log In</h3>
+                {% include 'user_app/partials/form_elements/user/login_form.html' %}
 
-                    <h5>Already have an account? <a href="#">Log In!</a></h5>
+                    <h5>Forgot Password? <a href="{% url 'forgot_password_page'%}">Reset Password!</a></h5>
                 </div>
             </div>
            

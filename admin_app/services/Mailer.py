@@ -14,6 +14,27 @@ class Mailer:
     def __init__(self):
         user_with_brand=AppConfig.Ownership.get_owner()
         self.user_with_brand=user_with_brand
+    
+    def send_forgot_password_email(self,request: HttpRequest, user:User,template_name: str ) -> bool:
+        """
+        Sends a forgot password email to the new user.
+        :param user: User instance.
+        :return: True if email is sent successfully, otherwise False.
+        """
+        
+        current_site = get_current_site(request)
+        subject = "Reset Your Password"
+        context = {
+            'name': user.name,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': token_generator.make_token(user),
+            'brand_name':self.user_with_brand.brand_name
+        }
+
+        return self.send_html_email(subject, template_name, context, [user.email])
+        
+        
     def send_welcome_email(self,user: User) -> bool:
         
         """
@@ -21,7 +42,7 @@ class Mailer:
         :param user: User instance.
         :return: True if email is sent successfully, otherwise False.
         """
-        subject = f"Welcome to Our {self.user_with_brand.brand_name} User Registration System"
+        subject = f"Reset Password For {self.user_with_brand.brand_name}"
         message = (
             f"Hello {user.name}!\n\n"
             f"Thank you for registering on our website. "

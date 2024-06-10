@@ -51,7 +51,6 @@ class PasswordChangeForm(forms.Form):
             RegexValidator(
                 regex='^(?=.*\d)(?=.*[a-zA-Z]).{10,}$',  # Requires at least one digit and one letter
                 message='Password must contain at least one digit and one letter',
-                code='invalid_password'
             )
         ],
        
@@ -63,7 +62,7 @@ class PasswordChangeForm(forms.Form):
         return True
     
 
-# a form for the User model
+# a form for the User model 
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
@@ -104,4 +103,8 @@ class UserForm(forms.ModelForm):
         if  brand_image_url is  None:
             raise forms.ValidationError("A brand_image is required")
         return brand_image_url
+    
+
+
+
     
