@@ -1,6 +1,7 @@
 
 from django.http import HttpResponse
 from ..models import User
+from admin_app.services import AppConfig
 
 
 def admin_login(request):

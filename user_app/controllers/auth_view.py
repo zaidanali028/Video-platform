@@ -18,7 +18,10 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate,login,logout
-   
+from custom_decorators.user.decorators import redirect_authenticated
+ 
+
+@redirect_authenticated
 def registration_page(request):
    
    request.session['page'] = 'Registration'
@@ -85,7 +88,7 @@ def registration_page(request):
    return render(request,'user_app/pages/user/registration.html',context)
    
    
-   
+ 
 def activate_user(request: HttpRequest, uidb64: str, token: str) -> HttpResponse:
     # Your logic for activating the user
     try:
@@ -162,6 +165,8 @@ def password_reset_confirm(request: HttpRequest, uidb64: str, token: str) -> Htt
    else:
       to_indexpage=reverse('index_page') + '?activated=false'
       return redirect(to_indexpage)
+
+@redirect_authenticated
 def forgot_password_page(request):
    request.session['page'] = 'Forgot Password'
   
@@ -204,7 +209,7 @@ def forgot_password_page(request):
 
    
    
-
+@redirect_authenticated
 def login_page(request):
    request.session['page'] = 'Login'
   

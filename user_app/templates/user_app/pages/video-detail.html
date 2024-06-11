@@ -180,9 +180,7 @@
           });
 
          if (videoPlayer) {
-           
-       
-         window.location.href=newURL
+            window.location.href=newURL
           
          }
 
@@ -236,7 +234,7 @@
       });
 
       // Function to update share links
-      const updateShareLinks = () => {
+      const tweetLink = () => {
           const currentUrl = window.location.href;
           const tweetText = `New Video Uploaded!\n\nTitle: ${videos[currentIndex].title}\n\n`;
           
@@ -250,7 +248,7 @@
      
 
   
-      updateShareLinks();
+      tweetLink();
   });
 </script>
 

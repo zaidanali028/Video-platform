@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from admin_app.services import AppConfig
 
 from django.views.decorators.http import require_POST
 from django.contrib.auth import login
@@ -37,8 +38,7 @@ def config_platform(request):
     
 
 
-def admin_login(request):
-    return HttpResponse('admin_login_page')
+
 
 
 @require_POST

@@ -1,3 +1,5 @@
+{% load humanize %}
+
 <section class="anime-details spad">
     <div class="container">
         <div class="anime__details__content">
@@ -31,7 +33,7 @@
                                             {% if not forloop.last %}, {% endif %}
                                         {% endfor %}</li>
                                         <li><span>Parts/Epes:</span>{{show.video_set.count}}</li>
-                                        <li><span>Views:</span> Not does yet</li>
+                                        <li><span>Views:</span> {{show.view_count|intword}}</li>
 
 
                                     </ul>

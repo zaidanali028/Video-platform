@@ -33,7 +33,6 @@ urlpatterns = [
     
   
     
-    
     # Show
     
     # this is the endpoint that displays the modal popup for show details

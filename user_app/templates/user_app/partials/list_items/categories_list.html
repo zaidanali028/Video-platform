@@ -6,6 +6,10 @@ I added load custom_filters because I wanted to:
   2. added my __init__.py file so that the folder will be treated as a python module
   3. I created a folder called custom_filters and then defined the function active_count in the file and am using it on line 22 in this file
 {% endcomment %}
+
+{% load humanize %}
+
+
 {% for show in shows %}
     {% if forloop.last and shows.has_next %}
 
@@ -19,7 +23,7 @@ I added load custom_filters because I wanted to:
             <div class="product__item__pic set-bg" data-setbg="{{ show.cover_image_url }}" style="background-image: url('{{ show.cover_image_url }}');">
 
                 <div class="ep">{{ show.video_set|active_count }}/{{ show.video_set.count }}</div>
-                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                <div class="view"><i class="fa fa-eye"></i> {{show.view_count|intword}}</div>
             </div>
             <div class="product__item__text">
                 <ul>

@@ -1,3 +1,6 @@
+{% load humanize %}
+<!-- Outputs: 1.5M -->
+
 <div class="col-lg-4 col-md-6 col-sm-8">
     <div class="product__sidebar">
         <div class="product__sidebar__view">
@@ -16,7 +19,7 @@
             <div class="product__sidebar__comment__item__text">
              
                 <h5><a href="#">{{show}}</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
+                <span><i class="fa fa-eye"></i> {{show.view_count|intword}} Viewes</span>
             </div>
         </div>
         {%endfor%}

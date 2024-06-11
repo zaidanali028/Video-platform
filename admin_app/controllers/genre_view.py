@@ -5,14 +5,21 @@ from django.http import HttpResponse,JsonResponse
 from admin_app.models import Genre
 from admin_app.Forms.genres.Forms import GenreForm
 from django.core.paginator import Paginator
-@login_required(login_url='admin_login')    
+from custom_decorators.admin.decorators import staff_required,ensure_platform_configured
+from admin_app.services import AppConfig
+
+
+
+
+@staff_required
+@ensure_platform_configured   
 def genres_list(request):
    
    request.session['page'] = 'Admin Genres'
+   user_with_brand = AppConfig.Ownership.get_owner()
+   site_name = user_with_brand.brand_name if user_with_brand else None
+   site_logo = user_with_brand.brand_image_url if user_with_brand else None
    staff_count = User.objects.filter(is_staff=True, is_active=True).count()
-   if staff_count<2:
-        # super super admin and the admin using the platform,will take admin to config_platform incase the staff accounts aint 2
-        return redirect('config_platform')
    page_number = request.GET.get('page', 1)
    genres = Genre.objects.all()
    paginator = Paginator(genres, 10)  # Show 10 genres per page
@@ -20,25 +27,35 @@ def genres_list(request):
 
  
    context={
-     "genres":page_obj  
+     "genres":page_obj,
+     "site_name":site_name,
+     "site_logo":site_logo
    }
 #    return HttpResponse(genres)
    return render(request,'admin_app/partials/list_elements/genres_list.html',context)
 
 
-@login_required(login_url='admin_login')    
+@staff_required
+@ensure_platform_configured   
 def genres(request):
    request.session['page'] = 'Admin Genres'
+   user_with_brand = AppConfig.Ownership.get_owner()
+   site_name = user_with_brand.brand_name if user_with_brand else None
+   site_logo = user_with_brand.brand_image_url if user_with_brand else None
    staff_count = User.objects.filter(is_staff=True, is_active=True).count()
-   if staff_count<2:
-        # super super admin and the admin using the platform,will take admin to config_platform incase the staff accounts aint 2
-        return redirect('config_platform')
    context={
-      
+      "site_name":site_name,
+      "site_logo":site_logo
    }
    return render(request,'admin_app/pages/genres/genres.html',context)
 
+
+@staff_required
+@ensure_platform_configured 
 def add_genre(request):
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     if request.method == 'POST':
         form = GenreForm(request.POST)
 
@@ -54,9 +71,17 @@ def add_genre(request):
         print(form)
         
 
-    return render(request, 'admin_app/partials/form_elements/genres/genre_form.html', {'form':form})
+    return render(request, 'admin_app/partials/form_elements/genres/genre_form.html', {
+        'form':form,
+        "site_name":site_name,
+        "site_logo":site_logo})
 
+@staff_required
+@ensure_platform_configured 
 def edit_genre(request, genre_id):
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     genre = get_object_or_404(Genre, id=genre_id)
     if request.method == 'POST':
         form = GenreForm(request.POST, instance=genre)
@@ -66,9 +91,15 @@ def edit_genre(request, genre_id):
 
     else:
         form = GenreForm(instance=genre)
-    return render(request, 'admin_app/partials/form_elements/genres/genre_form.html', {'form':form})
+    return render(request, 'admin_app/partials/form_elements/genres/genre_form.html', {
+        'form':form,
+        "site_name":site_name,
+        "site_logo":site_logo
+        })
 
 
+@staff_required
+@ensure_platform_configured 
 def delete_genre(request, genre_id):
     genre = get_object_or_404(Genre, id=genre_id)
     genre.delete()

@@ -66,6 +66,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # used it to load  data in a human readable format
+    # example: 1,0000 can be 1k etc
+    'django.contrib.humanize',
+
     # register the admin panel to our main app
     'admin_app.apps.AdminAppConfig',
     

@@ -2,6 +2,8 @@
 
 
 {% load custom_filters %}
+{% load humanize %}
+
 {% comment %} 
 I added load custom_filters because I wanted to:
   -- Find the number of active videos per each show
@@ -43,7 +45,7 @@ I added load custom_filters because I wanted to:
 
                                 <div class="ep">{{ show.video_set|active_count }}/{{ show.video_set.count }}</div>
 
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                <div class="view"><i class="fa fa-eye"></i> {{show.view_count|intword}}</div>
                             </div>
                             <div class="product__item__text">
                                 <ul>

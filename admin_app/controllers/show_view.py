@@ -5,36 +5,52 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from admin_app.Forms.shows.Forms import ShowForm
 import cloudinary.uploader
+from custom_decorators.admin.decorators import staff_required,ensure_platform_configured
+from admin_app.services import AppConfig
 
 
-@login_required(login_url='admin_login')
+@staff_required
+@ensure_platform_configured   
 def shows_list(request):
     request.session['page'] = 'Admin Shows'
     staff_count = User.objects.filter(is_staff=True, is_active=True).count()
-    if staff_count < 2:
-        return redirect('config_platform')
-
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     shows = Show.objects.all()
     page_number = request.GET.get('page', 1)
     paginator = Paginator(shows, 10)  # Show 10 shows per page
     page_obj = paginator.get_page(page_number)
 
     context = {
-        "shows": page_obj
+        "shows": page_obj,
+        "site_name":site_name,
+        "site_logo":site_logo
     }
     
     return render(request, 'admin_app/partials/list_elements/shows_list.html', context)
 
-@login_required(login_url='admin_login')
+@staff_required
+@ensure_platform_configured   
 def shows(request):
     request.session['page'] = 'Admin Shows'
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     staff_count = User.objects.filter(is_staff=True, is_active=True).count()
-    if staff_count < 2:
-        return redirect('config_platform')
-    return render(request, 'admin_app/pages/shows/shows.html')
+    context={
+        "site_name":site_name,
+        "site_logo":site_logo
+    }
+   
+    return render(request, 'admin_app/pages/shows/shows.html',context)
 
-@login_required(login_url='admin_login')
+@staff_required
+@ensure_platform_configured   
 def add_show(request):
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     if request.method == 'POST':
         # Make POST data mutable to manipulate it
         changed_data = request.POST.copy()
@@ -67,7 +83,11 @@ def add_show(request):
                 form.add_error('cover_image_url', 'Uploaded file is not an image.')
 
             # Render the form with errors
-            return render(request, 'admin_app/partials/form_elements/shows/show_form.html', {'form': form})
+            return render(request, 'admin_app/partials/form_elements/shows/show_form.html', {
+                'form': form,
+                "site_name":site_name,
+                "site_logo":site_logo
+                })
 
     else:
         # Initialize an empty form for GET requests
@@ -75,10 +95,13 @@ def add_show(request):
 
     return render(request, 'admin_app/partials/form_elements/shows/show_form.html', {'form': form})
 
-@login_required(login_url='admin_login')
+@staff_required
+@ensure_platform_configured   
 def edit_show(request, show_id):
     show = get_object_or_404(Show, id=show_id)
-    
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     if request.method == 'POST':
         
         # Make POST data mutable to manipulate it
@@ -116,14 +139,23 @@ def edit_show(request, show_id):
                 form.add_error('cover_image_url', 'Uploaded file is not an image.')
 
             # Render the form with errors
-            return render(request, 'admin_app/partials/form_elements/shows/show_form.html', {'form': form})
+            return render(request, 'admin_app/partials/form_elements/shows/show_form.html', {
+                'form': form,
+                 "site_name":site_name,
+                 "site_logo":site_logo
+                })
 
     else:
         form = ShowForm(instance=show)
     
-    return render(request, 'admin_app/partials/form_elements/shows/show_form.html', {'form': form})
+    return render(request, 'admin_app/partials/form_elements/shows/show_form.html', {
+        'form': form,
+        "site_name":site_name,
+        "site_logo":site_logo
+        })
 
-@login_required(login_url='admin_login')
+@staff_required
+@ensure_platform_configured   
 def delete_show(request, show_id):
     show = get_object_or_404(Show, id=show_id)
     show.delete()

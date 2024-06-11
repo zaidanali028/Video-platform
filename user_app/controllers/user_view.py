@@ -155,10 +155,12 @@ def show_page(request,show_slug):
    show = get_object_or_404(Show, slug=show_slug)
    context={'show':show}
    
+   
    return render(request, 'user_app/pages/shows/show.html', context)
   
    
 def video_page(request,show_slug,video_slug):
+
    user_with_brand = AppConfig.Ownership.get_owner()
 
    genres = Genre.objects.filter(status='active').annotate(genre_count=Count('genres_set')).filter(genre_count__gt=0).order_by('-created_at')[:5]
@@ -173,13 +175,35 @@ def video_page(request,show_slug,video_slug):
    page_title =" ".join(show.slug.split('-')).capitalize()
    request.session['page'] = page_title
    
-   # request.session['page'] = page_title
     # Get the video object related to the show and video_slug
    video = get_object_or_404(Video, show=show, slug=video_slug,status='active')
    videos = show.video_set.filter(status="active")
+   
+   # these fields help in condtionallyy showing next and prev buttons on the video page
    current_index = list(videos).index(video)
    total_videos=videos.count()
    last_video_index = total_videos - 1
+
+ 
+
+   # handling video and show view updates
+   ip_address = request.META['REMOTE_ADDR']
+   if request.session.get(f'viewed_{ip_address}'):
+     
+     
+        # User has already viewed this video from this IP, don't increment view count
+      pass
+   else:
+      # else increment both show and video view counts and set the session of that particular ip
+      video.view_count += 1
+      video.save()
+      show.view_count += 1
+      show.save()
+      request.session[f'viewed_{ip_address}'] = True
+
+
+  
+
     # Prepare the context with the show and video objects
    context = {
       'show': show,

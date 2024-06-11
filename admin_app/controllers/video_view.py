@@ -7,37 +7,57 @@ from django.http import HttpResponse, JsonResponse
 from admin_app.Forms.videos.Forms import VideoForm
 from admin_app.services import FCS
 import cloudinary.uploader
-import environ
+from custom_decorators.admin.decorators import staff_required,ensure_platform_configured
+from admin_app.services import AppConfig
 
 
-@login_required(login_url='admin_login')
+
+@staff_required
+@ensure_platform_configured 
 def videos_list(request):
     request.session['page'] = 'Admin Videos'
     staff_count = User.objects.filter(is_staff=True, is_active=True).count()
-    if staff_count < 2:
-        return redirect('config_platform')
+   
  
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     videos = Video.objects.all()
     page_number = request.GET.get('page', 1)
     paginator = Paginator(videos, 5)  # Show 5 videos per page
     page_obj = paginator.get_page(page_number)
 
     context = {
-        "videos": page_obj
+        "videos": page_obj,
+        "site_name":site_name,
+        "site_logo":site_logo
     }
     return render(request, 'admin_app/partials/list_elements/videos_list.html', context)
 
 
-@login_required(login_url='admin_login')
+@staff_required
+@ensure_platform_configured 
 def videos(request):
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     request.session['page'] = 'Admin Videos'
     staff_count = User.objects.filter(is_staff=True, is_active=True).count()
-    if staff_count < 2:
-        return redirect('config_platform')
-    return render(request, 'admin_app/pages/videos/videos.html')
 
+    context={
+        "site_name":site_name,
+        "site_logo":site_logo
+    }
+   
+    return render(request, 'admin_app/pages/videos/videos.html',context)
+
+@staff_required
+@ensure_platform_configured 
 def add_video(request):
-    shows=Show.objects.all()
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
+    shows=Show.objects.filter(status="true")
     if request.method == 'POST':
         
         # Make POST data mutable to manipulate it
@@ -92,16 +112,33 @@ def add_video(request):
                     
 
             # Render the form with errors
-            return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {'form': form,'shows':shows})
+            return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {
+                'form': form,
+                'shows':shows,
+                "site_name":site_name,
+                "site_logo":site_logo
+                })
 
     else:
         # Initialize an empty form for GET requests
         form = VideoForm()
 
-    return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {'form': form,'shows':shows})
+    return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {
+        'form': form,
+        'shows':shows,
+        "site_name":site_name,
+        "site_logo":site_logo
+    })
 
+@staff_required
+@ensure_platform_configured 
 def edit_video(request, video_id):
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     video = get_object_or_404(Video, id=video_id)
+    shows=Show.objects.filter(status="true")
+
     
     if request.method == 'POST':
         # Make POST data mutable to manipulate it
@@ -155,13 +192,26 @@ def edit_video(request, video_id):
                     form.add_error('video_url', 'Uploaded file must have a max of 40mb')
 
             # Render the form with errors
-            return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {'form': form})
+            return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {
+                'form': form,
+                'shows':shows,
+                "site_name":site_name,
+                "site_logo":site_logo
+            })
 
     else:
         form = VideoForm(instance=video)
     
-    return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {'form': form})
+    return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {
+         'form': form,
+         'shows':shows,
+         "site_name":site_name,
+         "site_logo":site_logo
+    })
 
+
+@staff_required
+@ensure_platform_configured 
 def delete_video(request, video_id):
     video = get_object_or_404(Video, id=video_id)
     video.delete()

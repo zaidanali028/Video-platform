@@ -2,39 +2,28 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from ..models import User
 from django.http import HttpResponse
+from custom_decorators.admin.decorators import staff_required,ensure_platform_configured
+from admin_app.services import AppConfig
 
 
 
-@login_required(login_url='admin_login')    
+
+
+
+@staff_required
+@ensure_platform_configured 
 def admin_index(request):
+
    request.session['page'] = 'Admin Dashboard'
-   staff_count = User.objects.filter(is_staff=True, is_active=True).count()
-   if staff_count<2:
-        # super super admin and the admin using the platform,will take admin to config_platform incase the staff accounts aint 2
-        return redirect('config_platform')
+   user_with_brand = AppConfig.Ownership.get_owner()
+   site_name = user_with_brand.brand_name if user_with_brand else None
+   site_logo = user_with_brand.brand_image_url if user_with_brand else None
    success = request.GET.get('success', False)
-   context={"success":success}
+   context={
+      "success":success,
+      "site_name":site_name,
+      "site_logo":site_logo
+      } 
    return render(request,'admin_app/pages/admin_index.html',context)
 
-@login_required(login_url='admin_login')    
-def admin_genres(request):
-   request.session['page'] = 'Admin Genres'
-   staff_count = User.objects.filter(is_staff=True, is_active=True).count()
-   if staff_count<2:
-        # super super admin and the admin using the platform,will take admin to config_platform incase the staff accounts aint 2
-        return redirect('config_platform')
-   context={}
-   return render(request,'admin_app/pages/admin_genres.html',context)
-
-
-
-
-def admin_videos(request):
-   request.session['page'] = 'Admin Videos'
-   staff_count = User.objects.filter(is_staff=True, is_active=True).count()
-   if staff_count<2:
-        # super super admin and the admin using the platform,will take admin to config_platform incase the staff accounts aint 2
-        return redirect('config_platform')
-   context={}
-   return render(request,'admin_app/pages/admin_videos.html',context)
 

@@ -80,6 +80,7 @@ class Show(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     cover_image_url = models.URLField(max_length=200, blank=True, null=True)
+    view_count = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category, related_name='categories_set')
     genres = models.ManyToManyField(Genre, related_name='genres_set')
     
@@ -114,6 +115,7 @@ class Video(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    view_count = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)  
