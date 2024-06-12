@@ -8,7 +8,6 @@ class EmailValidationForm(forms.Form):
     email = forms.CharField(max_length=254, validators=[EmailValidator()])
 
     def unique_email(self):
-        
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
             return False
@@ -82,18 +81,22 @@ class UserForm(forms.ModelForm):
     confirm_password = forms.CharField(
         min_length=10,
         
-       
+        
     )
+    
+
+class ConfigUpdateForm(forms.Form):
+    email = forms.CharField(max_length=254, validators=[EmailValidator()])
+    name = forms.CharField(max_length=255)
+    phone_number = forms.CharField(min_length=10)
+    brand_name = forms.CharField(max_length=255)
+    brand_image_url = forms.URLField(max_length=255)
+
+ 
 
 # overwriting some validation fields from the Form
   
-    
-    def clean_confirm_password(self):
-        password = self.cleaned_data.get('password')
-        confirm_password = self.cleaned_data.get('confirm_password')
-        if password != confirm_password:
-            raise forms.ValidationError('Passwords do not match (:')
-        return confirm_password
+
     
     
     

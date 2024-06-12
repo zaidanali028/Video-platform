@@ -74,7 +74,11 @@ def add_video(request):
                 thumb_result = cloudinary.uploader.upload(thumb_image_url)
                 changed_data['thumb_image_url'] = thumb_result['secure_url']
             else:
-                changed_data['thumb_image_url'] = None  # To avoid failing validation later
+                changed_data['thumb_image_url'] = None  #invalid thumb_image_url file provided
+
+        else:
+            changed_data['thumb_image_url'] = None  # a thumb_image_url was not provided
+        
 
         # Validate and upload the video file
         if video_file:
@@ -86,7 +90,10 @@ def add_video(request):
                 # print(changed_data['video_url'])
                 
             else:
-                changed_data['video_url'] = None  # To avoid failing validation later
+                changed_data['video_url'] = None  #an invalid video_file was provded
+        else:
+            # a video file wasnt even specified
+             changed_data['video_url'] = None  
 
         # Initialize the form with the updated data
         
@@ -100,15 +107,19 @@ def add_video(request):
             return HttpResponse(status=204, headers={'HX-Trigger': 'video_list_update'})
 
         else:
+    
             # Add errors for invalid file types
             if thumb_image_url and not thumb_image_url.content_type.startswith('image'):
+                # thumb_image_url provided but  its not of an image_file type
                 form.add_error('thumb_image_url', 'Uploaded file is not an image.')
-            if video_file: 
-                if video_file.content_type.startswith('video'):
-                    form.add_error('video_url', 'Uploaded file is not a video.')
-                if video_file.size > 41943040: 
-                    # 40 MB video_file.size
-                    form.add_error('video_url', 'Uploaded file must have a max of 40mb')
+                
+            if video_file and not video_file.content_type.startswith('video'):
+                # video_file provided but  its not of an video_file type
+                form.add_error('video_url', 'Uploaded file is not a video.')
+            
+          
+
+
                     
 
             # Render the form with errors
@@ -188,8 +199,7 @@ def edit_video(request, video_id):
             if video_file:
                 if not video_file.content_type.startswith('video'):
                     form.add_error('video_url', 'Uploaded file is not a video.')
-                if video_file.size > 41943040:  # 40 MB
-                    form.add_error('video_url', 'Uploaded file must have a max of 40mb')
+                
 
             # Render the form with errors
             return render(request, 'admin_app/partials/form_elements/videos/video_form.html', {

@@ -15,13 +15,12 @@ urlpatterns = [
     # path('post-config/validate-brand-image-url', config_view.validate_brand_image_url, name='validate_brand_image_url'),
     #    config for admin panel
     path('admin-config/', config_view.admin_config ,name='admin_config'),
+    path('auth/update-password/', auth_view.admin_update_password ,name='admin_update_password'),
     
 
     # admin-endpoint
     path('', admin_view.admin_index ,name='admin_index'),
-    # path('genres/', admin_view.admin_genres ,name='admin_genres'),
-    # path('categories/', admin_view.admin_categories ,name='admin_categories'),
-    # path('videos/', admin_view.admin_videos ,name='admin_videos'),
+   
 
 # Genres
   path('genres/', genre_view.genres, name='genres'),

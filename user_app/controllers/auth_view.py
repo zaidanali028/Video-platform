@@ -3,10 +3,9 @@ from django.http import HttpResponse
 from admin_app.models import Category,Genre,User
 from django.shortcuts import render,redirect,get_object_or_404
 from django.core.paginator import Paginator
-from time import sleep
 from django.db.models import Count
 from admin_app.Forms.config_platform.Forms import UserForm
-from admin_app.Forms.auth.Forms import LoginForm,ResetPasswordForm,ConfirmResetPasswordForm
+from user_app.Forms.auth.Forms import LoginForm,ResetPasswordForm,ConfirmResetPasswordForm
 from django.contrib.sites.shortcuts import get_current_site
 from admin_app.services import Mailer,AppConfig
 from django.core.mail import send_mail, EmailMessage
@@ -20,7 +19,7 @@ from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from custom_decorators.user.decorators import redirect_authenticated
  
-
+ 
 @redirect_authenticated
 def registration_page(request):
    

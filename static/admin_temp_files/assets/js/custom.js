@@ -219,3 +219,18 @@ function capitalize(str) {
 
 
 
+
+
+const data5 = getQueryParam('updated');
+
+if (data5 === 'true') {
+    Swal.fire({
+        title: 'Data Update Success!',
+        text: 'Your Details Were Updated Successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        // Remove the 'success' query parameter from the URL
+        removeQueryParam('updated');
+    });
+}

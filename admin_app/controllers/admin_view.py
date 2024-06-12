@@ -23,7 +23,7 @@ def admin_index(request):
       "success":success,
       "site_name":site_name,
       "site_logo":site_logo
-      } 
+      }  
    return render(request,'admin_app/pages/admin_index.html',context)
 
 

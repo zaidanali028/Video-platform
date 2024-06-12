@@ -5,13 +5,14 @@ from django.http import HttpResponse
 from time import sleep
 from django.http import JsonResponse,HttpResponse
 from django.template.loader import render_to_string
-from admin_app.Forms.config_platform.Forms import EmailValidationForm,NameValidationForm,BrandNameValidationForm,PhoneNumberValidationForm,PasswordChangeForm,UserForm
+from admin_app.Forms.config_platform.Forms import EmailValidationForm,NameValidationForm,BrandNameValidationForm,PhoneNumberValidationForm,PasswordChangeForm,UserForm,ConfigUpdateForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from admin_app.services import AppConfig
-
+from custom_decorators.admin.decorators import staff_required,ensure_platform_configured
+from admin_app.services import AppConfig
 from django.views.decorators.http import require_POST
 from django.contrib.auth import login
 import cloudinary.uploader
@@ -231,14 +232,16 @@ def validate_password(request):
     html_content = render_to_string('admin_app/partials/form_elements/password_res.html', context=validation_response)
     return HttpResponse(html_content)
 
-@login_required(login_url='admin_login')
+@staff_required
+@ensure_platform_configured 
 def admin_config(request):
     # modifies user model from the admin panel
     
     request.session['page'] = 'Admin Config'
     user = request.user
-    password=None
-    confirm_password=None
+    user_with_brand = AppConfig.Ownership.get_owner()
+    site_name = user_with_brand.brand_name if user_with_brand else None
+    site_logo = user_with_brand.brand_image_url if user_with_brand else None
     
     
     
@@ -251,10 +254,7 @@ def admin_config(request):
         # Retrieve the cover image file from the request
         brand_image_url = request.FILES.get('brand_image_url')
         
-        if changed_data['password']:
-           password=changed_data['password']
-        if changed_data['confirm_password']:
-           confirm_password=changed_data['confirm_password']
+ 
         # Validate and upload the cover image
         if brand_image_url:
             if brand_image_url.content_type.startswith('image'):
@@ -265,16 +265,9 @@ def admin_config(request):
         else:
             changed_data['brand_image_url'] = user.brand_image_url if user.brand_image_url else None  # use the previously uploaded image if no new image is provided
         
-        form = UserForm(data=changed_data, instance=user)
+        form = ConfigUpdateForm(data=changed_data)
         
-        if changed_data['old_password']:
-            user_auth=authenticate(request,email=request.user.email,password=changed_data['old_password'])
-            if user_auth is  None:
-                form.add_error('password', 'Old Password is wrong.')
-                form.add_error('confirm_password', 'Old Password is wrong.')
-        else:
-            form.add_error('password', 'Old Password is required.')
-            form.add_error('confirm_password', 'Old Password is required.')
+      
             
                 
            
@@ -283,33 +276,46 @@ def admin_config(request):
 
         # Initialize the form with the updated data
         if form.is_valid():
-            # Save the form data to the database
-            if changed_data['password'] :
-                    # client provided a new password ,authenticate user using the old password and if it succeds,update the password of the client
-                   user_auth=authenticate(request,email=request.user.email,password=changed_data['old_password'])
-                   if user_auth is not  None:
-                       # user provided new password
-                    user=form.save(commit=False)
-                    # encrypt password before saving
-                    user.set_password(form.cleaned_data['password'])
-                    user.save()
-            
-            # maintain user session,this prevents user from logging out after updating password
-            login(request,user)
+            user.name=form.cleaned_data.get('name')
+            user.email=form.cleaned_data.get('email')
+            user.brand_name=form.cleaned_data.get('brand_name')
+            user.phone_number=form.cleaned_data.get('phone_number')
+            user.brand_image_url=form.cleaned_data.get('brand_image_url')
+            user.save()
+ 
+
+
             response = JsonResponse({'success': True})
-            to_admin_panel=reverse('admin_index') + '?success=true'
+            to_admin_panel=reverse('admin_index') + '?updated=true'
             response['HX-Redirect'] =to_admin_panel
             return response 
             
         else:
            
             
-            return render(request, 'admin_app/partials/form_elements/config/config_form.html',{'form':form,'password':password,'confirm_password':confirm_password})
+            return render(request, 'admin_app/partials/form_elements/config/config_form.html',{
+                'form':form,
+                # 'password':password,
+                # 'confirm_password':confirm_password,
+                 'site_name':site_name,
+                 'site_logo':site_logo
+                })
             
     else:
         # form with just user instance
-        form = UserForm(instance=user)
+        form = ConfigUpdateForm(initial={
+            "name":user.name,
+            "email":user.email,
+            "brand_name":user.brand_name,
+            "phone_number":user.phone_number,
+            "brand_image_url":user.brand_image_url,
+        })
+        
     
     
-    return render(request, 'admin_app/pages/config/admin_config.html',{'form':form})
+    return render(request, 'admin_app/pages/config/admin_config.html',{
+        'form':form,
+        'site_name':site_name,
+        'site_logo':site_logo
+        })
     
