@@ -58,8 +58,8 @@ def add_category(request):
                 form.save()
                 return HttpResponse(status=204, headers={'HX-Trigger': 'category_list_update'})
             # 204, empty response 
-            else:
-                form = CategoryForm()
+    else:
+        form = CategoryForm()
 
     return render(request, 'admin_app/partials/form_elements/categories/category_form.html', {
         'form': form,

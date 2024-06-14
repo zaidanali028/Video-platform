@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path
-from .controllers import user_view,auth_view
+from  .views import user_view,auth_view
 
 urlpatterns = [
     path('', user_view.index_page ,name='index_page'),

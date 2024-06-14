@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 un_restricted_routes = [
-    # must be a naed route
+    # must be a named route
 
     'login_page',
     'registration_page',
@@ -12,7 +12,7 @@ un_restricted_routes = [
 
 ]
 
-# a decorator function to redirect auth users from unauthenticated routes8
+# a decorator function to redirect auth users from unauthenticated routes
 def redirect_authenticated(view_func):
     # Decorator to redirect authenticated users trying to access restricted routes
     # to their previous page or a default page.

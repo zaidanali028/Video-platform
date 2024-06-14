@@ -2,6 +2,7 @@ from functools import wraps
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from admin_app.models import User
+from django.urls import reverse
 
 
 
@@ -34,7 +35,7 @@ def staff_required(view_func):
 
     # _wrapped_view is where I will be implementing my staff check logic
     def _wrapped_view(request, *args, **kwargs):
-        if request.user.is_staff:
+        if request.user.is_staff and request.user.is_active:
             return view_func(request, *args, **kwargs)
         else:
             return redirect('index_page')
@@ -42,3 +43,31 @@ def staff_required(view_func):
 
 
 
+un_restricted_routes = [
+    # must be a named route
+     'admin_login',
+    
+
+]
+
+# a decorator function to redirect auth users from unauthenticated routes
+def redirect_authenticated(view_func):
+    # Decorator to redirect authenticated users trying to access restricted routes
+    # to their previous page or a default page.
+    @wraps(view_func)
+
+
+    def _wrapped_view(request, *args, **kwargs):
+        # Check if the user is authenticated
+        if request.user.is_authenticated:
+            current_path = request.path
+            
+            # Check if the current path is in the list of restricted routes
+            for route in un_restricted_routes:
+                if current_path == reverse(route):
+                    # Redirect to the referrer or default to 'home_page'
+                    return redirect(request.META.get('HTTP_REFERER', 'admin_index'))
+        # Call the original view function
+        return view_func(request, *args, **kwargs)
+    
+    return _wrapped_view

@@ -5,7 +5,7 @@
             class="w-4 h-4 opacity-70">
             <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0Zm0 14A6 6 0 1 0 0 2a6 6 0 0 0 0 14Z" />
         </svg>
-        <input id="brandInput" type="text" class="grow" placeholder="Brand Name" name="brand_name"  {% if brand_name %} value="{{ brand_name }}" {% else %} value="" {% endif %}  hx-post="{% url 'validate_brand_name' %}"/>
+        <input type="text" class="grow" placeholder="Brand Name" name="brand_name"  {% if brand_name %} value="{{ brand_name }}" {% else %} value="" {% endif %}  hx-post="{% url 'validate_brand_name' %}"/>
     </label>
     <span hx-target="this" hx-swap="innerHTML" class="{{class}}">{{ msg }}</span>
     <span id="" class="text-red-500">{{ err_brand_name }}</span>

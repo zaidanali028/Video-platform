@@ -1,8 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path
-from . import views
-from .controllers import config_view,auth_view,admin_view,genre_view,category_view,video_view,show_view
+from .views import config_view,auth_view,admin_view,genre_view,category_view,video_view,show_view
 
 urlpatterns = [
     path('config-platform/', config_view.config_platform ,name='config_platform'),
@@ -54,10 +53,10 @@ urlpatterns = [
 
 
 # auth endpoints
-    path('login/', auth_view.admin_login ,name='admin_login'),
+    path('auth/login/', auth_view.admin_login ,name='admin_login'),
 
    
-   
+    path('auth/logout/', auth_view.admin_logout ,name='admin_logout'),
 
 
      

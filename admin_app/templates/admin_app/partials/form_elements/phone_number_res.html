@@ -8,7 +8,7 @@
             <path d="M2 8.5C2 8.5 3 8.846 3 9.8125C3 10.779 2 11.0335 2 12C2 12.9665 3 13.221 3 14.1875C3 15.154 2 15.5 2 15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         
         </svg>
-        <input type="number" id="phoneNumInput" class="grow" placeholder="Phone Number" name="phone_number"
+        <input type="number" class="grow" placeholder="Phone Number" name="phone_number"
             hx-post="{% url 'validate_phone_number' %}" {% if phone_number %} value="{{ phone_number }}" {% else %} value="" {% endif %}  />
     </label>
     <span hx-target="this" hx-swap="innerHTML" class="{{class}}">{{ msg }}</span>

@@ -43,46 +43,51 @@ document.addEventListener("htmx:beforeSwap", function(event) {
 });
 
 document.addEventListener("htmx:beforeRequest", function(event) {
-    //this event is invoked before a request is sent to the server using HTMX
+    // event from htmx which is invoked before form requests
 
-
-    inputs=['nameInput','emailInput','phoneNumInput','brandInput','passwordConfirmInput','passwordInput']
-
-    // Access the endpoint URL from the event detail
-    const url_origin = event.detail.pathInfo.requestPath || event.detail.pathInfo.finalRequestPath;
-   if (url_origin=="/admin-app/post-config/"){
-    // console.log(url_origin=="/admin-app/post-config/")
-    // if user clicks on a button to send config FormData,
-     // disable input fields
-     inputs.forEach(function(id) {
-        let input = document.querySelector('#' + id);
-        if (input) {
-            
-                input.setAttribute('disabled', 'disabled');
+    // Get the form element that is triggering the request
+    let form = event.target.closest('form');
     
-        }
-    });
-
-   }
-
-    
-   
-  
-    
+    // If a form was found, proceed to disable the submit button and input fields
+    if (form) {
+        // Disable all input fields within the form
+        let inputs = form.querySelectorAll('input, textarea, select');
+        inputs.forEach(function(input) {
+            input.setAttribute('disabled', 'disabled');
+        });
+        
+        // Disable all submit buttons within the form
+        let submitButtons = form.querySelectorAll('button[type="submit"], input[type="submit"]');
+        submitButtons.forEach(function(button) {
+            button.setAttribute('disabled', 'disabled');
+            button.innerText = "Submitting...";
+        });
+    }
 });
 
 
-document.addEventListener("htmx:afterRequest", function(evt) {
-  
-    inputs=['nameInput','emailInput','phoneNumInput','brandInput','passwordConfirmInput','passwordInput']
-        // Loop through each input ID and disable the corresponding input
-        inputs.forEach(function(id) {
-            let input = document.querySelector('#' + id);
-            if (input) {
-                input.removeAttribute('disabled');
 
-            }
-        });
+document.addEventListener("htmx:afterRequest", function(evt) {
+    // event from htmx which is invoked after form requests
+  
+      // Get the form element that is triggering the request
+      let form = event.target.closest('form');
+    
+      // If a form was found, proceed to enable the submit button and input fields
+      if (form) {
+          // Enable all input fields within the form
+          let inputs = form.querySelectorAll('input, textarea, select');
+          inputs.forEach(function(input) {
+              input.removeAttribute('disabled');
+          });
+          
+          // Enable all submit buttons within the form
+          let submitButtons = form.querySelectorAll('button[type="submit"], input[type="submit"]');
+          submitButtons.forEach(function(button) {
+              button.removeAttribute('disabled');
+              button.innerText = "Submit"; // Reset button text if needed
+          });
+      }
 });
 
 
@@ -221,9 +226,9 @@ function capitalize(str) {
 
 
 
-const data5 = getQueryParam('updated');
+const updated_data = getQueryParam('updated');
 
-if (data5 === 'true') {
+if (updated_data === 'true') {
     Swal.fire({
         title: 'Data Update Success!',
         text: 'Your Details Were Updated Successfully!',
@@ -233,4 +238,27 @@ if (data5 === 'true') {
         // Remove the 'success' query parameter from the URL
         removeQueryParam('updated');
     });
+}
+
+const auth_data = getQueryParam('authenticated');
+if (auth_data === 'true') {
+    Swal.fire({
+        title: 'Log in success!',
+        text: 'Enjoy An Awesome Immersive Streaming Experience!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        // Remove the 'success' query parameter from the URL
+        removeQueryParam('authenticated');
+    });
+}else if(auth_data === 'false'){
+    Swal.fire({
+        title: 'Logged Out!',
+        text: 'Session revoked!',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        // Remove the 'success' query parameter from the URL
+        removeQueryParam('authenticated');
+    });    
 }

@@ -3,25 +3,25 @@ from django.core.validators import EmailValidator
 from admin_app.models  import User
 from django.core.validators import  RegexValidator
 
-# class LoginForm(forms.Form):
-#     email = forms.CharField(max_length=254, validators=[EmailValidator()])
-#     password = forms.CharField(
-#         min_length=10,
-#         validators=[
-#             RegexValidator(
-#                 regex='^(?=.*\d)(?=.*[a-zA-Z]).{10,}$',  # Requires at least one digit and one letter
-#                 message='Password must contain at least one digit and one letter',
-#             )
-#         ],
+class LoginForm(forms.Form):
+    email = forms.CharField(max_length=254, validators=[EmailValidator()])
+    password = forms.CharField(
+        min_length=10,
+        validators=[
+            RegexValidator(
+                regex='^(?=.*\d)(?=.*[a-zA-Z]).{10,}$',  # Requires at least one digit and one letter
+                message='Password must contain at least one digit and one letter',
+            )
+        ],
       
-#     )
+    )
     
-#     def clean_email(self):
-#         email = self.cleaned_data.get('email')
-#         if User.objects.filter(email=email).exists():
-#             return email
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            return email
             
-#         raise forms.ValidationError('Email Does Not Exist!')
+        raise forms.ValidationError('Email Does Not Exist!')
             
 
 

@@ -38,8 +38,8 @@
             </div>
             <div class="col-lg-4">
                 <div class="header__right">
-                    <a href="#" class="search-switch">{{request.user.name}}</a>
-                    {% comment %} <a href="#" class="search-switch"><span class="icon_search"></span></a> {% endcomment %}
+                    <a href="#" >{{request.user.name}}</a>
+
                     <a href="{% if user.is_authenticated %}{% url 'logout_page' %}{% else %}{% url 'login_page' %}{% endif %}"><span class="icon_profile"></span></a>
                 </div>
             </div>

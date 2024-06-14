@@ -2,7 +2,6 @@ from django.shortcuts import render,redirect
 from admin_app.models  import User
 
 from django.http import HttpResponse
-from time import sleep
 from django.http import JsonResponse,HttpResponse
 from django.template.loader import render_to_string
 from admin_app.Forms.config_platform.Forms import EmailValidationForm,NameValidationForm,BrandNameValidationForm,PhoneNumberValidationForm,PasswordChangeForm,UserForm,ConfigUpdateForm
@@ -16,6 +15,7 @@ from admin_app.services import AppConfig
 from django.views.decorators.http import require_POST
 from django.contrib.auth import login
 import cloudinary.uploader
+from time import sleep
 
 from django.urls import reverse
 def config_platform(request):
@@ -44,6 +44,7 @@ def config_platform(request):
 
 @require_POST
 def post_config(request):
+    
      # Make POST data mutable to manipulate it
     changed_data = request.POST.copy()
     brand_image_url = request.FILES.get('brand_image_url')
@@ -246,7 +247,6 @@ def admin_config(request):
     
     
     if request.method == 'POST':
-        
         
         # Make POST data mutable to manipulate it
         changed_data = request.POST.copy()

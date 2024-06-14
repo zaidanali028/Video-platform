@@ -1,6 +1,58 @@
+
+document.addEventListener("htmx:beforeRequest", function(event) {
+    // event from htmx which is invoked before form requests
+
+    // Get the form element that is triggering the request
+    let form = event.target.closest('form');
+    
+    // If a form was found, proceed to disable the submit button and input fields
+    if (form) {
+        // Disable all input fields within the form
+        let inputs = form.querySelectorAll('input, textarea, select');
+        inputs.forEach(function(input) {
+            input.setAttribute('disabled', 'disabled');
+        });
+        
+        // Disable all submit buttons within the form
+        let submitButtons = form.querySelectorAll('button[type="submit"], input[type="submit"]');
+        submitButtons.forEach(function(button) {
+            button.setAttribute('disabled', 'disabled');
+            button.innerText = "Submitting...";
+        });
+    }
+});
+
+
+
+document.addEventListener("htmx:afterRequest", function(evt) {
+    // event from htmx which is invoked after form requests
+  
+      // Get the form element that is triggering the request
+      let form = event.target.closest('form');
+    
+      // If a form was found, proceed to enable the submit button and input fields
+      if (form) {
+          // Enable all input fields within the form
+          let inputs = form.querySelectorAll('input, textarea, select');
+          inputs.forEach(function(input) {
+              input.removeAttribute('disabled');
+          });
+          
+          // Enable all submit buttons within the form
+          let submitButtons = form.querySelectorAll('button[type="submit"], input[type="submit"]');
+          submitButtons.forEach(function(button) {
+              button.removeAttribute('disabled');
+              button.innerText = "Submit"; // Reset button text if needed
+          });
+      }
+});
+
+
 function openShowModal(){
     $('#darkModal').modal('show');
 }
+
+
 
 
 function getQueryParam(param) {
@@ -32,10 +84,10 @@ if (data === 'true') {
     });
 }
 
- const data2 = getQueryParam('activated');
+ const activated_data = getQueryParam('activated');
 
 // Display SweetAlert if 'success' query parameter is true
-if (data2 === 'true') {
+if (activated_data === 'true') {
     Swal.fire({
         title: 'Activated!',
         text: 'Enjoy An Awesome Immersive Streaming Experience!',
@@ -45,7 +97,7 @@ if (data2 === 'true') {
         // Remove the 'success' query parameter from the URL
         removeQueryParam('activated');
     });
-}else if(data2 === 'false'){
+}else if(activated_data === 'false'){
     Swal.fire({
         title: 'Error!',
         text: 'Activation Link is Invalid or expired!',
@@ -57,8 +109,8 @@ if (data2 === 'true') {
     });    
 }
 
-const data3 = getQueryParam('authenticated');
-if (data3 === 'true') {
+const auth_data = getQueryParam('authenticated');
+if (auth_data === 'true') {
     Swal.fire({
         title: 'Log in success!',
         text: 'Enjoy An Awesome Immersive Streaming Experience!',
@@ -68,7 +120,7 @@ if (data3 === 'true') {
         // Remove the 'success' query parameter from the URL
         removeQueryParam('authenticated');
     });
-}else if(data3 === 'false'){
+}else if(auth_data === 'false'){
     Swal.fire({
         title: 'Logged Out!',
         text: 'Session revoked!',
@@ -80,9 +132,9 @@ if (data3 === 'true') {
     });    
 }
 
-const data4 = getQueryParam('reset');
+const reset_data = getQueryParam('reset');
 
-if (data4 === 'true') {
+if (reset_data === 'true') {
     Swal.fire({
         title: 'Reset Initiation Success!',
         text: 'Please check your email for further instructions',
@@ -95,9 +147,9 @@ if (data4 === 'true') {
 }
 
 
-const data5 = getQueryParam('updated');
+const updated_data = getQueryParam('updated');
 
-if (data5 === 'true') {
+if (updated_data === 'true') {
     Swal.fire({
         title: 'Password Reset Success!',
         text: 'Your Password Was successfully Updated,You Are Logged In!',

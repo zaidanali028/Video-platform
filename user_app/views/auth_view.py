@@ -18,8 +18,9 @@ from django.urls import reverse
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from custom_decorators.user.decorators import redirect_authenticated
- 
- 
+
+
+
 @redirect_authenticated
 def registration_page(request):
    
@@ -221,14 +222,11 @@ def login_page(request):
    password=None
    
    if request.method == 'POST':
+      form_data=request.POST
+      if form_data['password']:
+         password=form_data['password']
       
-      
-      
-      changed_data=request.POST.copy()
-      if changed_data['password']:
-         password=changed_data['password']
-      
-      form = LoginForm(data=changed_data)
+      form = LoginForm(data=form_data)
       
       if form.is_valid():
          form_email=form.cleaned_data.get('email')
@@ -261,5 +259,5 @@ def login_page(request):
 
 def logout_page(request):
    logout(request)
-   to_indexpage=reverse('index_page') + '?authenticated=false'
+   to_indexpage=reverse('login_page') + '?authenticated=false'
    return redirect(to_indexpage)
