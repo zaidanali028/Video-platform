@@ -13,6 +13,7 @@ document.addEventListener("htmx:beforeRequest", function(event) {
             input.setAttribute('disabled', 'disabled');
         });
         
+        
         // Disable all submit buttons within the form
         let submitButtons = form.querySelectorAll('button[type="submit"], input[type="submit"]');
         submitButtons.forEach(function(button) {

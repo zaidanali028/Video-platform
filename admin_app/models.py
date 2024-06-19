@@ -10,9 +10,10 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     brand_name = models.CharField(max_length=255, unique=False, null=True)
     brand_image_url = models.URLField(max_length=255, blank=True, null=True)
+   
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS=[]
-    
+    #overriding the username_field to take email instead of username and making the required_fields empty 
     
 
         

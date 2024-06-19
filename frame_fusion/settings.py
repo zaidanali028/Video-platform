@@ -77,10 +77,13 @@ INSTALLED_APPS = [
      'user_app.apps.UserAppConfig', 
     
     
+    # this is required inorder to modify django forms
     'widget_tweaks',
-    #  "django_htmx",
 
-  
+    # I need this inorder to  generate ers automatically from my django models
+    "django_extensions",
+  # Generate ERD of specific apps
+# python manage.py graph_models <app_name_1> <app_name_2> -o myapp_models.png
     
     
 

@@ -1,0 +1,26 @@
+#THE ER DIAGRRAM WAS AUTO-GENERATED USING THIS BLOG POST
+
+https://blog.shahryartayeb.com/post/automatically-generate-erd-of-your-django-models-21
+
+*Installation process
+
+1. $ pip install django-extensions
+
+
+# Installed pydotplus for graph generation
+2. $ pip install pydotplus
+
+3. #added django-extensions to my apps in settings.py
+
+
+
+*challenges
+1. there was an exception that required a package called graphviz when I ran the command:
+
+$ python manage.py graph_models admin_app auth -o admin_app_model_er.png
+
+> fixed it by installing the actual binary of the graphciz program using:
+
+$ brew install graphviz
+
+before the er generation worked
