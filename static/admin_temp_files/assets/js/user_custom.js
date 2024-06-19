@@ -160,3 +160,4 @@ if (updated_data === 'true') {
         removeQueryParam('updated');
     });
 }
+

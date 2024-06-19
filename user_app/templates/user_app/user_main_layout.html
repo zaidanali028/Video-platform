@@ -1,5 +1,5 @@
 <html lang="en">
-    {% load static %}
+{% load static %}
 
 <head>
     <meta charset="UTF-8">
@@ -7,24 +7,25 @@
     <meta name="keywords" content="Anime, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{site_name|default_if_none:'Framefusion LLC.'|title  }} - {{ request.session.page|default_if_none:''|title }}</title>
+    <title>{{site_name|default_if_none:'Framefusion LLC.'|title }} - {{ request.session.page|default_if_none:''|title }}
+    </title>
 
 
     <!-- Google Font -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&amp;display=swap"
         rel="stylesheet">
 
-        {% comment %} spinkkit {% endcomment %}
-        
+    {% comment %} spinkkit {% endcomment %}
+
     <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/spinkit/2.0.0/spinkit.min.css' type="text/css">
 
     <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
 
-    
+
     <!-- Css Styles -->
     <link rel="stylesheet" href="{% static 'user_temp_files/assets/css/bootstrap.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'user_temp_files/assets/css/font-awesome.min.css' %}" type="text/css">
@@ -35,14 +36,18 @@
     <link rel="stylesheet" href="{% static 'user_temp_files/assets/css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'user_temp_files/assets/css/style.css' %}" type="text/css">
 
-    <style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
 
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+    <style>
         .modal-content {
             background-color: #0b0c2a;
         }
     </style>
 
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -57,7 +62,7 @@
 
     <!-- Header End -->
 
-  
+
 
     <!-- Product Section Begin -->
     <section class="product spad">
@@ -90,19 +95,19 @@
     <script src="{% static 'user_temp_files/assets/js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'user_temp_files/assets/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'user_temp_files/assets/js/plyr.js' %}"></script>
-    
+
     <script src="{% static 'user_temp_files/assets/js/jquery.nice-select.min.js' %}"></script>
     <script src="{% static 'user_temp_files/assets/js/mixitup.min.js' %}"></script>
     <script src="{% static 'user_temp_files/assets/js/jquery.slicknav.js' %}"></script>
     <script src="{% static 'user_temp_files/assets/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'user_temp_files/assets/js/main.js' %}"></script>
-      <!-- my customjs -->
-  <script src="{% static 'admin_temp_files/assets/js/user_custom.js' %}"></script>
+    <!-- my customjs -->
+    <script src="{% static 'admin_temp_files/assets/js/user_custom.js' %}"></script>
 
-  
 
-  <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/videojs-playlist@4.3.0/dist/videojs-playlist.min.js"></script>
+
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-playlist@4.3.0/dist/videojs-playlist.min.js"></script>
 </body>
 
 </html>

@@ -20,7 +20,6 @@ from django.contrib.auth import authenticate,login,logout
 from custom_decorators.user.decorators import redirect_authenticated
 
 
-
 @redirect_authenticated
 def registration_page(request):
    

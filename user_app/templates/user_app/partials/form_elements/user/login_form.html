@@ -1,5 +1,11 @@
 {% load widget_tweaks %}
-
+{% if messages %}
+<ul  class="mb-3 text-danger">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 <form hx-post="{{request.path}}" hx-indicator="#loading">
 
     <div class="input__item ">

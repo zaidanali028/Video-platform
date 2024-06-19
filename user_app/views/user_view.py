@@ -7,6 +7,11 @@ from django.db.models import Count
 from admin_app.Forms.config_platform.Forms import UserForm
 from admin_app.services import AppConfig
 from django.utils.http import urlsafe_base64_decode
+
+from custom_decorators.user.decorators  import ensure_auth
+
+
+
 def index_page(request):
    request.session['page'] = 'Index'
    # get all users who has a brand_name
@@ -158,7 +163,9 @@ def show_page(request,show_slug):
    
    return render(request, 'user_app/pages/shows/show.html', context)
   
-   
+
+
+@ensure_auth
 def video_page(request,show_slug,video_slug):
 
    user_with_brand = AppConfig.Ownership.get_owner()
