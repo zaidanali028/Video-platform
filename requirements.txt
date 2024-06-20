@@ -16,13 +16,13 @@ httplib2
 idna
 jws
 oauth2client
-protobuf=
+protobuf
 pyasn1
 pyasn1_modules
-pycryptodome=
+pycryptodome
 pydotplus
 pyparsing
-Pyrebase=
+Pyrebase
 Pyrebase4
 python-jwt
 requests
