@@ -10,7 +10,7 @@ django-htmx==1.17.3
 django-livereload-server==0.5.1
 django-template-partials==24.2
 django-widget-tweaks==1.5.0
-gcloud==0.18.3
+gcloud
 googleapis-common-protos==1.63.1
 httplib2==0.22.0
 idna==3.7
