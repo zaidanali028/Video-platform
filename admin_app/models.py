@@ -14,7 +14,7 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS=[]
     #overriding the username_field to take email instead of username and making the required_fields empty 
-    
+      
 
         
 class Genre(models.Model):

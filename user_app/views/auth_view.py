@@ -10,7 +10,6 @@ from django.contrib.sites.shortcuts import get_current_site
 from admin_app.services import Mailer,AppConfig
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
-from django.http import HttpRequest
 from django.contrib.auth.tokens import default_token_generator as token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.http import HttpResponse
@@ -88,31 +87,31 @@ def registration_page(request):
    
    
  
-def activate_user(request: HttpRequest, uidb64: str, token: str) -> HttpResponse:
-    # Your logic for activating the user
-    try:
-        uid = urlsafe_base64_decode(uidb64).decode()
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, User.DoesNotExist):
-        user = None
-        return HttpResponse("Something aint ok.")
+def activate_user(request, uidb64, token):
+   # Your logic for activating the user
+   try:
+      uid = urlsafe_base64_decode(uidb64).decode()
+      user = User.objects.get(pk=uid)
+   except (TypeError, ValueError, User.DoesNotExist):
+      user = None
+      return HttpResponse("Something aint ok.")
         
 
 
-    if user is not None and token_generator.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user)
-        response = JsonResponse({'success': True})
-        to_indexpage=reverse('index_page') + '?activated=true'
-        return redirect(to_indexpage)
+   if user is not None and token_generator.check_token(user, token):
+      user.is_active = True
+      user.save()
+      login(request, user)
+      response = JsonResponse({'success': True})
+      to_indexpage=reverse('index_page') + '?activated=true'
+      return redirect(to_indexpage)
      
-    else:
+   else:
       to_indexpage=reverse('index_page') + '?activated=false'
       return redirect(to_indexpage)
 
 
-def password_reset_confirm(request: HttpRequest, uidb64: str, token: str) -> HttpResponse:
+def password_reset_confirm(request, uidb64, token) -> HttpResponse:
    request.session['page'] = 'Forgot Password'
    user_with_brand = AppConfig.Ownership.get_owner()
    
