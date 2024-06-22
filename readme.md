@@ -23,9 +23,9 @@
 - [Usage Instructions](#usage-instructions)
     - Offers a comprehensive guide on how to operate and utilize the project effectively.
       
--[Admin Credentials](#admin-credentials)
+- [Admin Credentials](#admin-credentials)
     - Demo Login Details(Admin)
--[User Credentials](#user-credentials)
+- [User Credentials](#user-credentials)
     - Demon Login Details(User)
 
 - [Contributing](#contributing)
