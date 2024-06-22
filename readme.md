@@ -82,7 +82,7 @@ Paul Leonard, a video creator, is looking for a customized video hosting platfor
 
 ## Project Deliverables
 - **Source Code**: [github source](https://github.com/zaidanali028/Video-platform)
-- **ER Diagram**: ![image](/screens/ERD.jpg)
+- **ER Diagram**: ![image](/screens/ERD.png)
 - **Deployed Link**: [live demo](hhttps://aliusmanzaidan.pythonanywhere.com//)
 
 ## Installation
