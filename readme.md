@@ -1,21 +1,41 @@
-# Video Platform
+# Paul Leonard's Video Platform
 
-## Table of Contents
-- [Project Objective](#project-objective)
-- [Customer Requirements](#customer-requirements)
+## Page Contents
+# Project Documentation
+- Project Title : Paul Leonard's Video Platform
+
+- [Aim Of Project](#aim-of-project)
+    - Defines the overarching goals and objectives the video patform project aims to achieve.
+
+- [Customer Specifications](#client-specifications)
+    - Outlines the specifications and expectations provided by the customer(Paul Leonard).
+
+
+
 - [Video Page](#video-page)
+    - Describes the video page features and functionalities that will be included in the project.
 - [Deliverables](#deliverables)
+    - Specifies the key outputs and results that will be delivered upon project completion.
 - [Installation](#installation)
+    - Provides detailed steps for installing and setting up the project environment.
 - [Usage](#usage)
+    - Offers a comprehensive guide on how to operate and utilize the project effectively.
 - [Contributing](#contributing)
+    - Details the process and guidelines for contributing to the project’s development.
 - [License](#license)
+    - Explains the terms and conditions under which the project can be used and distributed.
 
-## Project Objective
-Paul Leonard, a video creator, seeks a tailored video hosting platform to address branding concerns for his business. Dissatisfied with existing platforms, he desires a bespoke solution where he can exclusively upload videos under his brand. You've been recommended for the job by his close friends, and now it's up to you to deliver.
+## Aim Of Project
+Paul Leonard, a video creator, is looking for a customized video hosting platform to meet his business's branding needs. Unhappy with current options, he wants a unique solution that allows him to exclusively upload videos under his own brand. Recommended to him by close friends, you now have the opportunity to deliver this tailored solution.
 
-## Customer Requirements
-### Users
-1. **Signup & Login**: Users should register and log in using an email and password. Account verification is necessary. A reset password feature should be provided for recovering lost passwords.
+
+
+## Client Specifications
+### Clients -> Users
+1. **Signup & Login**: Users must create an account and log in using an email and password. Account verification is required. Additionally, there should be a feature for resetting passwords to recover lost access.
+
+
+
 - Register
 ![image](/screenshot/signup.png)
 - Log in
