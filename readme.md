@@ -1,5 +1,3 @@
-# Paul Leonard's Video Platform
-
 
 # Project Documentation
 - Project Title : Paul Leonard's Video Platform
