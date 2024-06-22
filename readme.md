@@ -1,9 +1,10 @@
 # Paul Leonard's Video Platform
 
-## Page Contents
+
 # Project Documentation
 - Project Title : Paul Leonard's Video Platform
 
+## Page Contents
 - [Aim Of Project](#aim-of-project)
     - Defines the overarching goals and objectives the video patform project aims to achieve.
 
@@ -23,6 +24,7 @@
     - Provides detailed steps for installing and setting up the project environment.
 - [Usage Instructions](#usage-instructions)
     - Offers a comprehensive guide on how to operate and utilize the project effectively.
+      
 -[Admin Credentials](#admin-credentials)
     - Demo Login Details(Admin)
 -[User Credentials](#user-credentials)
