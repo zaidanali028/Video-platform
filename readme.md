@@ -86,7 +86,7 @@ Paul Leonard, a video creator, is looking for a customized video hosting platfor
 ## Project Deliverables
 - **Source Code**: [github source](https://github.com/zaidanali028/Video-platform)
 - **ER Diagram**: ![image](/screens/ERD.png)
-- **Deployed Link**: [live demo](hhttps://aliusmanzaidan.pythonanywhere.com//)
+- **Deployed Link**: [live demo](https://aliusmanzaidan.pythonanywhere.com//)
 
 ## Installation
 Here are the steps to install and run this project locally:
@@ -148,7 +148,7 @@ Here are the steps to install and run this project locally:
 
 4. Share video links with others.
 
-5. You can access the demo of this application at [https://aliusmanzaidan.pythonanywhere.com/](https://aliusmanzaidan.pythonanywhere.com/).
+5. You can access the demo of this application at [Demo Url](https://aliusmanzaidan.pythonanywhere.com/).
 
 ### Admin Credentials
 - **Email**: king3@dj.com
