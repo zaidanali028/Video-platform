@@ -34,7 +34,7 @@
     - Explains the terms and conditions under which the project can be used and distributed.
 
 - [Frontend Reactivity And Templating Credits](#frontend-reactivity-and-templating-credits)
-    - credits to thirdparty libraries and templates that aided in making this a success
+    - Credits to thirdparty libraries and templates that aided in making this a success
 
 ## Aim Of Project
 Paul Leonard, a video creator, is looking for a customized video hosting platform to meet his business's branding needs. Unhappy with current options, he wants a unique solution that allows him to exclusively upload videos under his own brand. Recommended to him by close friends, you now have the opportunity to deliver this tailored solution.
