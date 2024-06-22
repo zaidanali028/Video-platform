@@ -37,7 +37,7 @@ Paul Leonard, a video creator, is looking for a customized video hosting platfor
 
 
 - Register
-![image](/screenshot/signup.png)
+![image](/screens/registration.png)
 - Log in
 ![image](/screenshot/sign%20in.png)
 - Password Reset
