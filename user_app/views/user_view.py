@@ -194,19 +194,20 @@ def video_page(request,show_slug,video_slug):
  
 
    # handling video and show view updates
-   ip_address = request.META['REMOTE_ADDR']
-   if request.session.get(f'viewed_{ip_address}'):
+   video_identifier=f'viewed_{show_slug}_{video_slug}'
+
+   if request.session.get(video_identifier):
      
      
-        # User has already viewed this video from this IP, don't increment view count
+        # User has already viewed this video 
       pass
    else:
-      # else increment both show and video view counts and set the session of that particular ip
+      # else increment both show and video view counts and set the session of the video_identifier
       video.view_count += 1
       video.save()
       show.view_count += 1
       show.save()
-      request.session[f'viewed_{ip_address}'] = True
+      request.session[video_identifier] = True
 
 
   
