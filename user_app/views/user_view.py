@@ -1,12 +1,9 @@
-
 from admin_app.models import Category,Genre,Video,Show,User
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,get_object_or_404
 from django.core.paginator import Paginator
-from time import sleep
 from django.db.models import Count
 from admin_app.Forms.config_platform.Forms import UserForm
 from admin_app.services import AppConfig
-from django.utils.http import urlsafe_base64_decode
 
 from custom_decorators.user.decorators  import ensure_auth
 

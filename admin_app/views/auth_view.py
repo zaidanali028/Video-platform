@@ -1,6 +1,4 @@
 
-from django.http import HttpResponse
-from ..models import User
 from admin_app.services import AppConfig
 from custom_decorators.admin.decorators import staff_required,ensure_platform_configured
 from django.shortcuts import render,redirect
@@ -10,7 +8,6 @@ from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from admin_app.Forms.auth.Forms import LoginForm
 from custom_decorators.admin.decorators import redirect_authenticated
-from time import sleep
 
 @redirect_authenticated
 def admin_login(request):

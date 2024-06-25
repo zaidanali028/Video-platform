@@ -1,14 +1,12 @@
 
 from django.http import HttpResponse
 from admin_app.models import Category,Genre,User
-from django.shortcuts import render,redirect,get_object_or_404
-from django.core.paginator import Paginator
+from django.shortcuts import render,redirect
 from django.db.models import Count
 from admin_app.Forms.config_platform.Forms import UserForm
 from user_app.Forms.auth.Forms import LoginForm,ResetPasswordForm,ConfirmResetPasswordForm
 from django.contrib.sites.shortcuts import get_current_site
 from admin_app.services import Mailer,AppConfig
-from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator as token_generator
 from django.utils.http import urlsafe_base64_decode

@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from admin_app.Forms.config_platform.Forms import EmailValidationForm,NameValidationForm,BrandNameValidationForm,PhoneNumberValidationForm,PasswordChangeForm,UserForm,ConfigUpdateForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import login
 from django.contrib import messages
 from admin_app.services import AppConfig
 from custom_decorators.admin.decorators import staff_required,ensure_platform_configured

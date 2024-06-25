@@ -1,6 +1,5 @@
 # views.py
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from ..models import User, Video,Show
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
